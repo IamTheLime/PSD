@@ -142,7 +142,7 @@ public class Exchange {
     }
 
     public static void main(String[] args) throws Exception {
-        int port = 12345; //Integer.parseInt(args[0]);
+        int port = 7777; //Integer.parseInt(args[0]);
         ActorRef exchange = new ExchangeInstance().spawn();
         Acceptor acceptor = new Acceptor(port, exchange);
         acceptor.spawn();

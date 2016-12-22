@@ -48,7 +48,7 @@ class Send_Data extends Thread{
 public class Client {
     public static void main(String []argv){
         try{
-            Socket connection_to_exchange= new Socket("localhost",77777);
+            Socket connection_to_exchange= new Socket("localhost",7777);
             new Send_Data(connection_to_exchange).start();
             new Receive_Data(connection_to_exchange).start();
         }

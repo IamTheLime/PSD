@@ -22,11 +22,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="PSD" />
+        <module name="PSD_Projeto" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="PSD" target="1.8" />
+      <module name="PSD_Projeto" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
