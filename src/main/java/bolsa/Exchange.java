@@ -1,13 +1,18 @@
+package bolsa;
+
 import co.paralleluniverse.actors.ActorRef;
 import co.paralleluniverse.actors.BasicActor;
 import co.paralleluniverse.fibers.SuspendExecution;
 import co.paralleluniverse.fibers.io.FiberServerSocketChannel;
 import co.paralleluniverse.fibers.io.FiberSocketChannel;
+import com.google.protobuf.CodedInputStream;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -16,7 +21,8 @@ import java.util.Set;
 public class Exchange {
 
     //Basic classes for message creation
-    private enum Type { DATA, EOF, IOE, ENTER, LEAVE, LINE }
+    private static Map <String, String> listofusers= new HashMap<String,String>();
+    private enum Type { DATA, EOF, IOE, ENTER, LEAVE, LINE, LOGIN, AUTH }
     private static int MAXLEN=1024;
     static class Msg {
         final Type type;
@@ -26,6 +32,42 @@ public class Exchange {
 
     //Auxiliary comunication class, it digests Strings
 
+    static class Authentication extends BasicActor <Msg,Void> {
+        final ActorRef<Msg> dest;
+        final FiberSocketChannel socket;
+
+        Authentication(ActorRef<Msg> dest, FiberSocketChannel socket) {
+            this.dest = dest;
+            this.socket = socket;
+        }
+
+        protected Void doRun() throws InterruptedException, SuspendExecution {
+            ByteBuffer in = ByteBuffer.allocate(MAXLEN);
+            CodedInputStream cis;
+            ByteBuffer clientInfo;
+            try {
+                byte b;
+                if (socket.read(in) <= 0) this.dest.send(new Msg(Type.EOF,null));
+                in.flip();
+                cis = CodedInputStream.newInstance(in);
+                int userSize = cis.readInt32();
+                in.clear();
+                in.compact();
+                byte [] userbytes = cis.readRawBytes(userSize);
+                Utilizador.User user = Utilizador.User.parseFrom(userbytes);
+                if(listofusers.containsKey(user.getUsername())) {
+                    if(listofusers.get(user.getUsername()).equals(user.getPassword()))
+                        this.dest.send(new Msg(Type.AUTH,null));
+                    else{
+                        this.dest.send(new Msg(Type.EOF,null));
+                    }
+                }
+            }
+            catch(Exception e){e.printStackTrace();}
+            return null;
+        }
+    }
+//Esta classe vai implementar o envio e receção de objetos futuramente
     static class LineReader extends BasicActor<Msg, Void> {
         final ActorRef<Msg> dest;
         final FiberSocketChannel socket;
@@ -77,6 +119,7 @@ public class Exchange {
             while (receive(msg -> {
                 switch (msg.type) {
                     case ENTER:
+                        users.add((ActorRef) msg.o);
                         return true;
                     case LEAVE:
                         users.remove(msg.o);
@@ -93,8 +136,8 @@ public class Exchange {
 
     static class Acceptor extends BasicActor {
         final int port;
-        final ActorRef room;
-        Acceptor(int port, ActorRef room) { this.port = port; this.room = room; }
+        final ActorRef exchange;
+        Acceptor(int port, ActorRef exchange) { this.port = port; this.exchange = exchange; }
 
         protected Void doRun() throws InterruptedException, SuspendExecution {
             try {
@@ -102,7 +145,8 @@ public class Exchange {
                 ss.bind(new InetSocketAddress(port));
                 while (true) {
                     FiberSocketChannel socket = ss.accept();
-                    new Client(room, socket).spawn();
+                    new Client(this.exchange, socket).spawn();
+
                 }
             } catch (IOException e) { }
             return null;
@@ -112,18 +156,26 @@ public class Exchange {
     static class Client extends BasicActor<Msg, Void> {
         final ActorRef exchange;
         final FiberSocketChannel socket;
+        private static boolean loggedIn = false;
         Client(ActorRef exchange, FiberSocketChannel socket) { this.exchange = exchange; this.socket = socket; }
 
         protected Void doRun() throws InterruptedException, SuspendExecution {
-            new LineReader(self(), socket).spawn();
+           // new LineReader(self(), socket).spawn(); //para já vamos ignorar a utilização de um lineReader, é importante remover o flush
+            new Authentication(self(),socket).spawn();
             exchange.send(new Msg(Type.ENTER, self()));
             while (receive(msg -> {
                 try {
                     switch (msg.type) {
+                        case AUTH:
+                            loggedIn = true;
+                            System.out.println("Here");
+                            return true;
                         case DATA:
                             exchange.send(new Msg(Type.LINE, msg.o));
                             return true;
                         case EOF:
+                            exchange.send(new Msg(Type.LEAVE,self()));
+                            socket.close();
                         case IOE:
                             exchange.send(new Msg(Type.LEAVE, self()));
                             socket.close();
@@ -142,6 +194,7 @@ public class Exchange {
     }
 
     public static void main(String[] args) throws Exception {
+        listofusers.put("tiago","tiago");
         int port = 7777; //Integer.parseInt(args[0]);
         ActorRef exchange = new ExchangeInstance().spawn();
         Acceptor acceptor = new Acceptor(port, exchange);
