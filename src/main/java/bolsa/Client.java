@@ -27,7 +27,7 @@ class Receive_Data extends Thread{
             while((buffer = reader.readLine())!=null){ System.out.println(buffer);}
         }
         catch(Exception e){
-            e.printStackTrace();
+            System.out.println("Disconetado do servidor");
         }
     }
     
@@ -38,8 +38,8 @@ class Send_Data extends Thread{
         this.connection=connection;
     }
 
-
     public void run() {
+        //Realização do log in
         try{
             Scanner in = new Scanner(System.in);
             System.out.println("Por favor introduza o seu utilizador:");
@@ -52,9 +52,44 @@ class Send_Data extends Thread{
             cos.writeInt32NoTag(user_byte.length);
             cos.writeRawBytes(user_byte);
             cos.flush();
-        } catch(Exception e) {e.printStackTrace();}
 
+            boolean exit = false;
+            int menu = 0;
+            if(!(connection.isConnected() && !connection.isClosed())) menu=3 ;
+            for(;;) {
+                switch (menu) {
+                    case 1://Ordens de Venda
+                        System.out.println("Introduza o nome da empresa");
+                        String empresa = in.next();
+                        System.out.println("Introduza a quantidade de ações a vender");
+                        int quantidade = Integer.parseInt(in.next());
+                        System.out.println("Introduza o preço mínimo");
+                        float custo = Float.parseFloat(in.next());
+                        menu=0;
+                        break;
+                    case 2://Ordem de Compra
+                        System.out.println("I'm here");
+                        menu=0;
+                        break;
+                    case 3:
+                        exit= true;
+                        break;
+                    default:
+                        System.out.println("Por favor selecione uma opção:");
+                        System.out.println("| 1 | Ordens de Venda");
+                        System.out.println("| 2 | Ordens de Compra");
+                        System.out.println("| 3 | Sair do Programa");
+                        System.out.println("Por favor selecione uma opção:");
+                        menu = Integer.parseInt(in.next());
+                        break;
+                }
+            if(exit){
+                connection.close();
+                break;}
+            }
+        } catch(Exception e) {System.out.println("Disconetado do servidor");}
 
+        /*
         BufferedReader inputFromConsole = new BufferedReader(new InputStreamReader(System.in));
         try {
             PrintWriter writer = new PrintWriter(this.connection.getOutputStream());
@@ -64,7 +99,7 @@ class Send_Data extends Thread{
                 writer.flush();
             }
         }
-        catch (Exception e) {e.printStackTrace();}
+        catch (Exception e) {e.printStackTrace();}*/
     }
 
     static Utilizador.User createUser(String username,String password){

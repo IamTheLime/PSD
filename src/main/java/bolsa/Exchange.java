@@ -56,12 +56,18 @@ public class Exchange {
                 byte [] userbytes = cis.readRawBytes(userSize);
                 Utilizador.User user = Utilizador.User.parseFrom(userbytes);
                 if(listofusers.containsKey(user.getUsername())) {
-                    if(listofusers.get(user.getUsername()).equals(user.getPassword()))
+                    if(listofusers.get(user.getUsername()).equals(user.getPassword())){
+                        System.out.println("Conetado");
                         this.dest.send(new Msg(Type.AUTH,null));
+                    }
                     else{
-                        this.dest.send(new Msg(Type.EOF,null));
+                        System.out.println("Disconetado");
+                        this.dest.send(new Msg(Type.IOE,null));
                     }
                 }
+                else{
+                    System.out.println("Disconetado");
+                    this.dest.send(new Msg(Type.IOE,null));}
             }
             catch(Exception e){e.printStackTrace();}
             return null;
@@ -168,7 +174,6 @@ public class Exchange {
                     switch (msg.type) {
                         case AUTH:
                             loggedIn = true;
-                            System.out.println("Here");
                             return true;
                         case DATA:
                             exchange.send(new Msg(Type.LINE, msg.o));
