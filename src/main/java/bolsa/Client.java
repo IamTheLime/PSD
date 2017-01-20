@@ -1,13 +1,16 @@
 package bolsa;
 
 import com.google.protobuf.CodedOutputStream;
+import org.zeromq.ZMQ;
 
 import java.io.BufferedReader;
 import java.io.Console;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -32,8 +35,26 @@ class Receive_Data extends Thread{
     }
     
 }
+
+class Show_Subscriber extends Thread{
+
+    public void run(){
+        String empresa = "Empresa1";
+        ZMQ.Context context = ZMQ.context(1);
+        ZMQ.Socket subscriber = context.socket(ZMQ.SUB);
+        subscriber.connect("tcp://localhost:12345");
+        subscriber.subscribe(empresa.getBytes());
+        // Read envelope with address
+        String address = subscriber.recvStr ();
+        // Read message contents
+        String contents = subscriber.recvStr ();
+        System.out.println(address + " : " + contents);
+    }
+}
+
 class Send_Data extends Thread {
     private Socket connection;
+    ArrayList<String> empresas = new ArrayList<String>();
 
     public Send_Data(Socket connection) {
         this.connection = connection;
@@ -53,10 +74,12 @@ class Send_Data extends Thread {
             cos.writeInt32NoTag(user_byte.length);
             cos.writeRawBytes(user_byte);
             cos.flush();
+            ZMQ.Context context = ZMQ.context(1);
+            ZMQ.Socket subscriber = context.socket(ZMQ.SUB);
 
             boolean exit = false;
             int menu = 0;
-            if (!(connection.isConnected() && !connection.isClosed())) menu = 3;
+            if (!(connection.isConnected() && !connection.isClosed())) menu = 5;
             for (; ; ) {
                 switch (menu) {
                     case 1://Ordens de Venda
@@ -91,13 +114,26 @@ class Send_Data extends Thread {
                         menu = 0;
                         break;
                     case 3:
+                        System.out.println("Introduza o nome da empresa");
+                        String empresa = in.next();
+                        empresas.add(empresa);
+                        break;
+                    case 4:
+                        Show_Subscriber ss = new Show_Subscriber();
+                        ss.run();
+
+                        menu = 4;
+                        break;
+                    case 5:
                         exit = true;
                         break;
                     default:
                         System.out.println("Por favor selecione uma opção:");
                         System.out.println("| 1 | Ordens de Venda");
                         System.out.println("| 2 | Ordens de Compra");
-                        System.out.println("| 3 | Sair do Programa");
+                        System.out.println("| 3 | Seguir Empresa");
+                        System.out.println("| 4 | Ver Subscrições");
+                        System.out.println("| 5 | Sair do Programa");
                         System.out.println("Por favor selecione uma opção:");
                         menu = Integer.parseInt(in.next());
                         break;

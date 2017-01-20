@@ -8,6 +8,7 @@ import co.paralleluniverse.fibers.io.FiberServerSocketChannel;
 import co.paralleluniverse.fibers.io.FiberSocketChannel;
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.Message;
+import org.zeromq.ZMQ;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -118,21 +119,50 @@ public class Exchange {
 
     static class CompanyOrders extends BasicActor <Msg,Void> {//Esta classe trata de gerar os publishing servers aos quais se irão ligar os subscritores, adicionalmente irá tratar de todas as exchanges ligadas a uma determinada empresa
         private String empresa;
-        private Map<Double,Ordem.Order> sellOrder;
-        private Map<Double,Ordem.Order> buyOrder;
+        private ActorRef<Msg> exchange;
+        private TreeMap<Double,Ordem.Order> sellOrder = null;
+        private TreeMap<Double,Ordem.Order> buyOrder = null;
+        private ZMQ.Context context = ZMQ.context(1);
+        private ZMQ.Socket publisher = context.socket(ZMQ.PUB);
 
-        CompanyOrders(String empresa){
+        CompanyOrders(String empresa,ActorRef<Msg>exchange){
+            this.exchange=exchange;
             this.empresa=empresa;
+            sellOrder = new TreeMap<Double, Ordem.Order>();
+            buyOrder = new TreeMap<Double, Ordem.Order>();
+
         }
 
         protected Void doRun() throws InterruptedException, SuspendExecution{
+            publisher.bind("tcp://127.0.0.1:4");
             while (receive(msg -> {
                 switch (msg.type) {
                     case SELLORDER:
-                        Ordem.Order ordemVenda =
+                        Ordem.Order ordemVenda = (Ordem.Order) msg.o;
+                        sellOrder.put(ordemVenda.getPreco(),ordemVenda);
+                        if (buyOrder.isEmpty()) return true;
+                        else {
+                            Ordem.Order orderSell = sellOrder.firstEntry().getValue();
+                            Ordem.Order orderBuy = buyOrder.firstEntry().getValue();
+                            // CRIAR TRANSAÇAO CUIDADO COM A DIFERRENÇA DE UNIDADES
+                            //sellOrder.remove(orderSell.getEmpresa());
+                            //buyOrder.remove(orderBuy.getEmpresa());
+                            publisher.sendMore(this.empresa);
+                            publisher.send("aqui caralho");
+
+                        }
                         return true;
                     case BUYORDER:
-                        System.out.println("I'm here bruh");
+                        Ordem.Order ordemCompra = (Ordem.Order) msg.o;
+                        buyOrder.put(ordemCompra.getPreco(),ordemCompra);
+                        if (sellOrder.isEmpty()) return true;
+                        else{
+                            Ordem.Order orderSell = sellOrder.firstEntry().getValue();
+                            Ordem.Order orderBuy = buyOrder.firstEntry().getValue();
+                            // CRIAR TRANSAÇAO CUIDADO COM A DIFERENÇA DE UNIDADES
+                            //sellOrder.remove(orderSell.getEmpresa());
+                            //buyOrder.remove(orderBuy.getEmpresa());
+                        }
                         return true;
                 }
                 return false;
@@ -261,10 +291,10 @@ public class Exchange {
         generateUsersAndCompanies();
         int port = 7777; //Integer.parseInt(args[0]);
         Map<String,ActorRef> empresasToActors = new HashMap<String,ActorRef>();
-        for (int i=0; i<empresas.size();i++){
-           empresasToActors.put(empresas.get(i),new CompanyOrders(empresas.get(i)).spawn());
-        }
         ActorRef exchange = new ExchangeInstance(empresasToActors).spawn();
+        for (int i=0; i<empresas.size();i++){
+            empresasToActors.put(empresas.get(i),new CompanyOrders(empresas.get(i),exchange).spawn());
+        }
         Acceptor acceptor = new Acceptor(port, exchange);
         acceptor.spawn();
         acceptor.join();
