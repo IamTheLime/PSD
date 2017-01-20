@@ -32,47 +32,66 @@ class Receive_Data extends Thread{
     }
     
 }
-class Send_Data extends Thread{
+class Send_Data extends Thread {
     private Socket connection;
-    public Send_Data (Socket connection){
-        this.connection=connection;
+
+    public Send_Data(Socket connection) {
+        this.connection = connection;
     }
 
     public void run() {
         //Realização do log in
-        try{
+        try {
             Scanner in = new Scanner(System.in);
             System.out.println("Por favor introduza o seu utilizador:");
             String username = in.next();
             System.out.println("Por favor introduza a sua password:");
             String password = in.next();
             CodedOutputStream cos = CodedOutputStream.newInstance(connection.getOutputStream());
-            Utilizador.User usercreation = createUser(username,password);
-            byte[]user_byte = usercreation.toByteArray();
+            Utilizador.User usercreation = createUser(username, password);
+            byte[] user_byte = usercreation.toByteArray();
             cos.writeInt32NoTag(user_byte.length);
             cos.writeRawBytes(user_byte);
             cos.flush();
 
             boolean exit = false;
             int menu = 0;
-            if(!(connection.isConnected() && !connection.isClosed())) menu=3 ;
-            for(;;) {
+            if (!(connection.isConnected() && !connection.isClosed())) menu = 3;
+            for (; ; ) {
                 switch (menu) {
                     case 1://Ordens de Venda
                         System.out.println("Introduza o nome da empresa");
-                        String empresa = in.next();
+                        String empresavenda = in.next();
                         System.out.println("Introduza a quantidade de ações a vender");
-                        int quantidade = Integer.parseInt(in.next());
+                        int quantidadevenda = Integer.parseInt(in.next());
                         System.out.println("Introduza o preço mínimo");
-                        float custo = Float.parseFloat(in.next());
-                        menu=0;
+                        double precominimo = Float.parseFloat(in.next());
+                        Ordem.Order ordemvenda = createOrder(Ordem.Order.OrderTypes.SELL,empresavenda,username,precominimo,quantidadevenda);
+                        byte[] sell_byte = ordemvenda.toByteArray();
+                        cos.writeInt32NoTag(1000);
+                        cos.writeInt32NoTag(sell_byte.length);
+                        cos.writeRawBytes(sell_byte);
+                        cos.flush();
+
+                        menu = 0;
                         break;
                     case 2://Ordem de Compra
-                        System.out.println("I'm here");
-                        menu=0;
+                        System.out.println("Introduza o nome da empresa");
+                        String empresacompra = in.next();
+                        System.out.println("Introduza a quantidade de ações a comprar");
+                        int quantidadecompra = Integer.parseInt(in.next());
+                        System.out.println("Introduza o preço máximo");
+                        double precomaximo = Float.parseFloat(in.next());
+                        Ordem.Order ordemcompra = createOrder(Ordem.Order.OrderTypes.BUY,empresacompra,username,precomaximo,quantidadecompra);
+                        byte[] buy_byte = ordemcompra.toByteArray();
+                        cos.writeInt32NoTag(1001);
+                        cos.writeInt32NoTag(buy_byte.length);
+                        cos.writeRawBytes(buy_byte);
+                        cos.flush();
+                        menu = 0;
                         break;
                     case 3:
-                        exit= true;
+                        exit = true;
                         break;
                     default:
                         System.out.println("Por favor selecione uma opção:");
@@ -83,11 +102,16 @@ class Send_Data extends Thread{
                         menu = Integer.parseInt(in.next());
                         break;
                 }
-            if(exit){
-                connection.close();
-                break;}
+                if (exit) {
+                    connection.close();
+                    break;
+                }
             }
-        } catch(Exception e) {System.out.println("Disconetado do servidor");}
+        } catch (Exception e) {
+            try{
+            this.connection.close();} catch(Exception e2) {e2.printStackTrace();}
+            System.out.println("Disconetado do servidor");
+        }
 
         /*
         BufferedReader inputFromConsole = new BufferedReader(new InputStreamReader(System.in));
@@ -102,13 +126,24 @@ class Send_Data extends Thread{
         catch (Exception e) {e.printStackTrace();}*/
     }
 
-    static Utilizador.User createUser(String username,String password){
+    static Utilizador.User createUser(String username, String password) {
         return
                 Utilizador.User.newBuilder()
-                .setUsername(username)
-                .setPassword(password)
-                .build();
+                        .setUsername(username)
+                        .setPassword(password)
+                        .build();
 
+    }
+
+    static Ordem.Order createOrder(Ordem.Order.OrderTypes typeoforder, String companyName, String userName, double preco, int quantidade){
+        return
+                Ordem.Order.newBuilder()
+                        .setEmpresa(companyName)
+                        .setPreco(preco)
+                        .setUsername(userName)
+                        .setTipodeempresa(typeoforder)
+                        .setQuantidade(quantidade)
+                        .build();
     }
 }
 

@@ -1,7 +1,0 @@
-package bolsa;
-
-message Order{
-    required boolean typeoforder=1;
-    required string empresa=2;
-    required float preco=3;
-}

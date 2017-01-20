@@ -1,19 +1,18 @@
 package bolsa;
 
+import co.paralleluniverse.actors.Actor;
 import co.paralleluniverse.actors.ActorRef;
 import co.paralleluniverse.actors.BasicActor;
 import co.paralleluniverse.fibers.SuspendExecution;
 import co.paralleluniverse.fibers.io.FiberServerSocketChannel;
 import co.paralleluniverse.fibers.io.FiberSocketChannel;
 import com.google.protobuf.CodedInputStream;
+import com.google.protobuf.Message;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by lima on 12/18/16.
@@ -22,7 +21,8 @@ public class Exchange {
 
     //Basic classes for message creation
     private static Map <String, String> listofusers= new HashMap<String,String>();
-    private enum Type { DATA, EOF, IOE, ENTER, LEAVE, LINE, LOGIN, AUTH }
+    private static ArrayList<String> empresas = new ArrayList<String>();
+    private enum Type { DATA, EOF, IOE, ENTER, LEAVE, LINE, AUTH,INFO, SELLORDER,BUYORDER}
     private static int MAXLEN=1024;
     static class Msg {
         final Type type;
@@ -44,9 +44,7 @@ public class Exchange {
         protected Void doRun() throws InterruptedException, SuspendExecution {
             ByteBuffer in = ByteBuffer.allocate(MAXLEN);
             CodedInputStream cis;
-            ByteBuffer clientInfo;
             try {
-                byte b;
                 if (socket.read(in) <= 0) this.dest.send(new Msg(Type.EOF,null));
                 in.flip();
                 cis = CodedInputStream.newInstance(in);
@@ -73,53 +71,84 @@ public class Exchange {
             return null;
         }
     }
-//Esta classe vai implementar o envio e receção de objetos futuramente
-    static class LineReader extends BasicActor<Msg, Void> {
-        final ActorRef<Msg> dest;
-        final FiberSocketChannel socket;
-        ByteBuffer in = ByteBuffer.allocate(MAXLEN);
-        ByteBuffer out = ByteBuffer.allocate(MAXLEN);
 
-        LineReader(ActorRef<Msg> dest, FiberSocketChannel socket) {
-            this.dest = dest; this.socket = socket;
+    static class ObjReader extends BasicActor <Msg,Void> {
+        final ActorRef<Msg> dest;
+        final ActorRef<Msg> exchange;
+        final FiberSocketChannel socket;
+
+        ObjReader(ActorRef<Msg> dest, ActorRef<Msg> exchange, FiberSocketChannel socket) {
+            this.dest = dest;
+            this.socket = socket;
+            this.exchange = exchange;
         }
 
         protected Void doRun() throws InterruptedException, SuspendExecution {
-            boolean eof = false;
-            byte b = 0;
+            ByteBuffer in = ByteBuffer.allocate(MAXLEN);
+
             try {
-                for(;;) {
-                    if (socket.read(in) <= 0) eof = true;
+                for (;;) {
+                    CodedInputStream cis;
+                    byte b;
+                    if (socket.read(in) <= 0) this.dest.send(new Msg(Type.EOF, null));
                     in.flip();
-                    while(in.hasRemaining()) {
-                        b = in.get();
-                        out.put(b);
-                        if (b == '\n') break;
+                    cis = CodedInputStream.newInstance(in);
+                    int flag = cis.readInt32();
+                    int objSize = cis.readInt32();
+                    byte[] object = cis.readRawBytes(objSize);
+                    in.clear();
+                    if (flag == 1000){
+                        Ordem.Order ordemVenda =  Ordem.Order.parseFrom(object);
+                        this.exchange.send(new Msg(Type.SELLORDER,ordemVenda));
                     }
-                    if (eof || b == '\n') { // send line
-                        out.flip();
-                        if (out.remaining() > 0) {
-                            byte[] ba = new byte[out.remaining()];
-                            out.get(ba);
-                            out.clear();
-                            dest.send(new Msg(Type.DATA, ba));
-                        }
+                    else if (flag == 1001){
+                        Ordem.Order ordemCompra = Ordem.Order.parseFrom(object);
+                        this.exchange.send(new Msg(Type.BUYORDER,ordemCompra));
                     }
-                    if (eof && !in.hasRemaining()) break;
-                    in.compact();
+                     else {
+                        System.out.println("Falhou");
+                        this.dest.send(new Msg(Type.IOE, null));
+                    }
                 }
-                dest.send(new Msg(Type.EOF, null));
-                return null;
-            } catch (IOException e) {
-                dest.send(new Msg(Type.IOE, null));
-                return null;
             }
+            catch(Exception e){e.printStackTrace();}
+            return null;
+        }
+    }
+
+    static class CompanyOrders extends BasicActor <Msg,Void> {//Esta classe trata de gerar os publishing servers aos quais se irão ligar os subscritores, adicionalmente irá tratar de todas as exchanges ligadas a uma determinada empresa
+        private String empresa;
+        private Map<Double,Ordem.Order> sellOrder;
+        private Map<Double,Ordem.Order> buyOrder;
+
+        CompanyOrders(String empresa){
+            this.empresa=empresa;
+        }
+
+        protected Void doRun() throws InterruptedException, SuspendExecution{
+            while (receive(msg -> {
+                switch (msg.type) {
+                    case SELLORDER:
+                        Ordem.Order ordemVenda =
+                        return true;
+                    case BUYORDER:
+                        System.out.println("I'm here bruh");
+                        return true;
+                }
+                return false;
+            }));
+            return null;
         }
 
     }
 
     static class ExchangeInstance extends BasicActor<Msg, Void> {
-        private Set<ActorRef> users = new HashSet();
+        private Set<ActorRef> users = new HashSet<>();
+        private Map<String,ActorRef> empresasToActors= new HashMap<>();
+
+        ExchangeInstance(Map<String,ActorRef> empresasToActors){
+            this.empresasToActors = empresasToActors;
+        }
 
         protected Void doRun() throws InterruptedException, SuspendExecution {
             while (receive(msg -> {
@@ -133,6 +162,24 @@ public class Exchange {
                     case LINE:
                         for (ActorRef u : users) u.send(msg);
                         return true;
+                    case SELLORDER:
+                        Ordem.Order ordemVenda = (Ordem.Order) msg.o;
+                        if (!empresas.contains(ordemVenda.getEmpresa())){
+                            System.out.println("A empresa não Existe");
+                             return true;}
+                        else{
+                            empresasToActors.get(ordemVenda.getEmpresa()).send(new Msg(Type.SELLORDER,ordemVenda));
+                        }
+                        return  true;
+                    case BUYORDER:
+                        Ordem.Order ordemCompra = (Ordem.Order) msg.o;
+                        if (!empresas.contains(ordemCompra.getEmpresa())){
+                            System.out.println("A empresa não Existe");
+                            return true;}
+                        else{
+                            empresasToActors.get(ordemCompra.getEmpresa()).send(new Msg(Type.BUYORDER,ordemCompra));
+                        }
+                        return  true;
                 }
                 return false;
             }));
@@ -174,13 +221,15 @@ public class Exchange {
                     switch (msg.type) {
                         case AUTH:
                             loggedIn = true;
+                            new ObjReader(self(),exchange,socket).spawn();
                             return true;
                         case DATA:
-                            exchange.send(new Msg(Type.LINE, msg.o));
+                            exchange.send(new Msg(Type.INFO, msg.o));
                             return true;
                         case EOF:
                             exchange.send(new Msg(Type.LEAVE,self()));
                             socket.close();
+                            return false;
                         case IOE:
                             exchange.send(new Msg(Type.LEAVE, self()));
                             socket.close();
@@ -198,10 +247,24 @@ public class Exchange {
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    private static void generateUsersAndCompanies(){
         listofusers.put("tiago","tiago");
+        listofusers.put("rafuru","rafuru");
+        listofusers.put("desu","desu");
+        empresas.add("Empresa1");
+        empresas.add("Empresa2");
+        empresas.add("Empresa3");
+        empresas.add("Empresa4");
+    }
+
+    public static void main(String[] args) throws Exception {
+        generateUsersAndCompanies();
         int port = 7777; //Integer.parseInt(args[0]);
-        ActorRef exchange = new ExchangeInstance().spawn();
+        Map<String,ActorRef> empresasToActors = new HashMap<String,ActorRef>();
+        for (int i=0; i<empresas.size();i++){
+           empresasToActors.put(empresas.get(i),new CompanyOrders(empresas.get(i)).spawn());
+        }
+        ActorRef exchange = new ExchangeInstance(empresasToActors).spawn();
         Acceptor acceptor = new Acceptor(port, exchange);
         acceptor.spawn();
         acceptor.join();
