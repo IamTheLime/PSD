@@ -15,9 +15,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Created by lima on 12/18/16.
- */
 public class Exchange {
 
     //Basic classes for message creation
@@ -29,6 +26,13 @@ public class Exchange {
         final Object o;  // careful with mutable objects, such as the byte array
         Msg(Type type, Object o) { this.type = type; this.o = o; }
     }
+
+    /*
+     * Publisher
+     */
+    private ZMQ.Context zmqContext = ZMQ.context(1);
+    private ZMQ.Socket zmqSocket = zmqContext.socket(ZMQ.PUB);
+    zmqSocket.bing("tcp://*:5678");
 
     //Auxiliary comunication class, it digests Strings
 

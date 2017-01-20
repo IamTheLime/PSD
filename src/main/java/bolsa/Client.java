@@ -9,10 +9,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.util.Scanner;
+import org.zeromq.ZMQ;
 
-/**
- * Created by lima on 12/18/16.
- */
 
 class Receive_Data extends Thread{
     private Socket connection;
@@ -30,7 +28,7 @@ class Receive_Data extends Thread{
             System.out.println("Disconetado do servidor");
         }
     }
-    
+
 }
 class Send_Data extends Thread{
     private Socket connection;
@@ -53,6 +51,14 @@ class Send_Data extends Thread{
             cos.writeRawBytes(user_byte);
             cos.flush();
 
+            /*
+             * Subescriber
+             */
+            ZMQ.Context zmqContext = ZMQ.context(1);
+            ZMQ.Socket zmqSocket = zmqContext.socket(ZMQ.SUB);
+            zmqSocket.connect("tcp://localhost:5678");
+            int subscritos = 0;
+
             boolean exit = false;
             int menu = 0;
             if(!(connection.isConnected() && !connection.isClosed())) menu=3 ;
@@ -74,12 +80,49 @@ class Send_Data extends Thread{
                     case 3:
                         exit= true;
                         break;
+                    case 4:
+                        System.our.println("A que empresa quer subscrever?")
+                        String empresa = in.next()
+                        /*
+                         * Subscriber
+                         * Subscreve a uma dada empresa, sempre que houver uma
+                         * negociacao com essa empresa sera notificado
+                         */
+                        if(subscritos < 10){
+                          zmqSocket.subscribe(empresa.getBytes());
+                          subscritos++;
+                        }
+
+                        break;
                     default:
                         System.out.println("Por favor selecione uma opção:");
                         System.out.println("| 1 | Ordens de Venda");
                         System.out.println("| 2 | Ordens de Compra");
                         System.out.println("| 3 | Sair do Programa");
+                        /*
+                         * Um cliente tambem podera registar (e cancelar)o interesse
+                         * em obter dados em tempo real sobre as negociações a ocorrer
+                         *
+                         * Publisher - Subscriber
+                         *
+                         * Publisher -> Exchange
+                         * Subscriber -> Client
+                         *
+                         */
+                        if(subscritos < 10){
+                          System.out.println("| 4 | Subscrever informação");
+                        }
+                        else{
+                          System.out.println("Não pode subscrever a mais nenhuma empresa");
+                        }
                         System.out.println("Por favor selecione uma opção:");
+                        /*
+                         *  Receive the subscription
+                         */
+                        while(!in.hasNext()){
+                          byte[] b = zmqSocket.recv()
+                          System.out.println(new String(b))
+                        }
                         menu = Integer.parseInt(in.next());
                         break;
                 }

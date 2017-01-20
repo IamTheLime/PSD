@@ -1,0 +1,1 @@
+Adicionei subscriber no cliente para quando um cliente quer receber informação sobre uma negociação de uma dada empresa, no exchange adicionei o socket, mas falta fazer a parte zmqSochet.send(alguma mensagem de notificação da empresa) sempre que há uma negociação
