@@ -134,11 +134,13 @@ public class Exchange {
         }
 
         protected Void doRun() throws InterruptedException, SuspendExecution{
-            publisher.bind("tcp://127.0.0.1:4");
+            publisher.bind("tcp://127.0.0.1:6666");
             while (receive(msg -> {
                 switch (msg.type) {
                     case SELLORDER:
                         Ordem.Order ordemVenda = (Ordem.Order) msg.o;
+                        publisher.sendMore(this.empresa);
+                        publisher.send("aqui caralho");
                         sellOrder.put(ordemVenda.getPreco(),ordemVenda);
                         if (buyOrder.isEmpty()) return true;
                         else {
@@ -147,6 +149,7 @@ public class Exchange {
                             // CRIAR TRANSAÇAO CUIDADO COM A DIFERRENÇA DE UNIDADES
                             //sellOrder.remove(orderSell.getEmpresa());
                             //buyOrder.remove(orderBuy.getEmpresa());
+                            System.out.println("AQUI"+this.empresa);
                             publisher.sendMore(this.empresa);
                             publisher.send("aqui caralho");
 
@@ -282,9 +285,9 @@ public class Exchange {
         listofusers.put("rafuru","rafuru");
         listofusers.put("desu","desu");
         empresas.add("Empresa1");
-        empresas.add("Empresa2");
+       /* empresas.add("Empresa2");
         empresas.add("Empresa3");
-        empresas.add("Empresa4");
+        empresas.add("Empresa4");*/
     }
 
     public static void main(String[] args) throws Exception {

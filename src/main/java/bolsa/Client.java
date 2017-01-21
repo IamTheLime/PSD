@@ -42,7 +42,7 @@ class Show_Subscriber extends Thread{
         String empresa = "Empresa1";
         ZMQ.Context context = ZMQ.context(1);
         ZMQ.Socket subscriber = context.socket(ZMQ.SUB);
-        subscriber.connect("tcp://localhost:12345");
+        subscriber.connect("tcp://localhost:6666");
         subscriber.subscribe(empresa.getBytes());
         // Read envelope with address
         String address = subscriber.recvStr ();
@@ -117,6 +117,7 @@ class Send_Data extends Thread {
                         System.out.println("Introduza o nome da empresa");
                         String empresa = in.next();
                         empresas.add(empresa);
+                        menu = 0;
                         break;
                     case 4:
                         Show_Subscriber ss = new Show_Subscriber();
