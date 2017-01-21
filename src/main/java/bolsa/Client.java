@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -37,18 +38,32 @@ class Receive_Data extends Thread{
 }
 
 class Show_Subscriber extends Thread{
+    private ArrayList<String> empresas;
+    ZMQ.Context context = null;
+    ZMQ.Socket subscriber =null;
+    Show_Subscriber(ArrayList<String> empresas, ZMQ.Socket subscriber){
+        this.empresas=empresas;
+        this.subscriber=subscriber;
+    }
+
 
     public void run(){
-        String empresa = "Empresa1";
-        ZMQ.Context context = ZMQ.context(1);
-        ZMQ.Socket subscriber = context.socket(ZMQ.SUB);
-        subscriber.connect("tcp://localhost:6666");
-        subscriber.subscribe(empresa.getBytes());
-        // Read envelope with address
-        String address = subscriber.recvStr ();
-        // Read message contents
-        String contents = subscriber.recvStr ();
-        System.out.println(address + " : " + contents);
+        for(String empresa : empresas) subscriber.subscribe(empresa.getBytes());
+        String address = null;
+        String contents = null;
+        while(true && !Thread.interrupted()){
+                if (address ==null)
+                    address = subscriber.recvStr(Charset.defaultCharset());
+                if (address != null && contents ==null)
+                    contents = subscriber.recvStr(Charset.defaultCharset());
+                if(address!=null && contents !=null){
+                    System.out.println(address + " : " + contents);
+                    address = null; contents = null;
+                }
+
+        }
+
+        return;
     }
 }
 
@@ -120,10 +135,14 @@ class Send_Data extends Thread {
                         menu = 0;
                         break;
                     case 4:
-                        Show_Subscriber ss = new Show_Subscriber();
-                        ss.run();
-
-                        menu = 4;
+                        System.out.println("Carregue em qualquer tecla para sair: ");
+                        subscriber.connect("tcp://localhost:6666");
+                        subscriber.setReceiveTimeOut(1000);
+                        Show_Subscriber ss = new Show_Subscriber(empresas,subscriber);
+                        ss.start();
+                        in.next();
+                        ss.interrupt();
+                        menu=0;
                         break;
                     case 5:
                         exit = true;

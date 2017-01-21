@@ -122,25 +122,24 @@ public class Exchange {
         private ActorRef<Msg> exchange;
         private TreeMap<Double,Ordem.Order> sellOrder = null;
         private TreeMap<Double,Ordem.Order> buyOrder = null;
-        private ZMQ.Context context = ZMQ.context(1);
-        private ZMQ.Socket publisher = context.socket(ZMQ.PUB);
+        private ZMQ.Socket publisher = null;
 
-        CompanyOrders(String empresa,ActorRef<Msg>exchange){
+        CompanyOrders(String empresa,ActorRef<Msg>exchange,ZMQ.Socket publisher){
             this.exchange=exchange;
             this.empresa=empresa;
+            this.publisher=publisher;
             sellOrder = new TreeMap<Double, Ordem.Order>();
             buyOrder = new TreeMap<Double, Ordem.Order>();
 
         }
 
         protected Void doRun() throws InterruptedException, SuspendExecution{
-            publisher.bind("tcp://127.0.0.1:6666");
             while (receive(msg -> {
                 switch (msg.type) {
                     case SELLORDER:
                         Ordem.Order ordemVenda = (Ordem.Order) msg.o;
                         publisher.sendMore(this.empresa);
-                        publisher.send("aqui caralho");
+                        publisher.send("formatar texto da empresa");
                         sellOrder.put(ordemVenda.getPreco(),ordemVenda);
                         if (buyOrder.isEmpty()) return true;
                         else {
@@ -285,18 +284,21 @@ public class Exchange {
         listofusers.put("rafuru","rafuru");
         listofusers.put("desu","desu");
         empresas.add("Empresa1");
-       /* empresas.add("Empresa2");
+        empresas.add("Empresa2");
         empresas.add("Empresa3");
-        empresas.add("Empresa4");*/
+        empresas.add("Empresa4");
     }
 
     public static void main(String[] args) throws Exception {
         generateUsersAndCompanies();
         int port = 7777; //Integer.parseInt(args[0]);
+        ZMQ.Context context = ZMQ.context(1);
+        ZMQ.Socket publisher = context.socket(ZMQ.PUB);
+        publisher.bind("tcp://127.0.0.1:6666");
         Map<String,ActorRef> empresasToActors = new HashMap<String,ActorRef>();
         ActorRef exchange = new ExchangeInstance(empresasToActors).spawn();
         for (int i=0; i<empresas.size();i++){
-            empresasToActors.put(empresas.get(i),new CompanyOrders(empresas.get(i),exchange).spawn());
+            empresasToActors.put(empresas.get(i),new CompanyOrders(empresas.get(i),exchange,publisher).spawn());
         }
         Acceptor acceptor = new Acceptor(port, exchange);
         acceptor.spawn();
