@@ -2,58 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a1600a4f-9680-4383-b4b3-c275653f1e8b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Banco_PSD/target/classes/Bank/Bank.class" afterPath="$PROJECT_DIR$/Banco_PSD/target/classes/Bank/Bank.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/base/12410/pg_internal.init" afterPath="$PROJECT_DIR$/DATABASE/base/12410/pg_internal.init" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/base/16384/1259" afterPath="$PROJECT_DIR$/DATABASE/base/16384/1259" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/base/16384/16385" afterPath="$PROJECT_DIR$/DATABASE/base/16384/16385" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/base/16384/2619" afterPath="$PROJECT_DIR$/DATABASE/base/16384/2619" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/base/16384/2619_vm" afterPath="$PROJECT_DIR$/DATABASE/base/16384/2619_vm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/base/16384/2696" afterPath="$PROJECT_DIR$/DATABASE/base/16384/2696" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/base/16384/pg_internal.init" afterPath="$PROJECT_DIR$/DATABASE/base/16384/pg_internal.init" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/base/16398/1259" afterPath="$PROJECT_DIR$/DATABASE/base/16398/1259" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/base/16398/16399" afterPath="$PROJECT_DIR$/DATABASE/base/16398/16399" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/base/16398/16405" afterPath="$PROJECT_DIR$/DATABASE/base/16398/16405" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/base/16398/2619" afterPath="$PROJECT_DIR$/DATABASE/base/16398/2619" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/base/16398/2619_vm" afterPath="$PROJECT_DIR$/DATABASE/base/16398/2619_vm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/base/16398/2696" afterPath="$PROJECT_DIR$/DATABASE/base/16398/2696" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/base/16398/pg_internal.init" afterPath="$PROJECT_DIR$/DATABASE/base/16398/pg_internal.init" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/global/pg_control" afterPath="$PROJECT_DIR$/DATABASE/global/pg_control" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/global/pg_internal.init" afterPath="$PROJECT_DIR$/DATABASE/global/pg_internal.init" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_clog/0000" afterPath="$PROJECT_DIR$/DATABASE/pg_clog/0000" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_0.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_0.stat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_12410.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_12410.stat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_16384.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_16384.stat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_16398.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_16398.stat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/global.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/global.stat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_xlog/000000010000000000000001" afterPath="$PROJECT_DIR$/DATABASE/pg_xlog/000000010000000000000001" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/db.data" afterPath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/db.data" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/db.redo" afterPath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/db.redo" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/lock" afterPath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$1.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Acceptor.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Acceptor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Authentication.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Authentication.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Client.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Client.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$CompanyOrders.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$CompanyOrders.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$ExchangeInstance.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$ExchangeInstance.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Msg.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Msg.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$ObjReader.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$ObjReader.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$TransactionManager.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$TransactionManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Type.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Type.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Settlement.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Settlement.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Banco_PSD/.idea/workspace.xml" afterPath="$PROJECT_DIR$/Banco_PSD/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Banco_PSD/btm1.tlog" afterPath="$PROJECT_DIR$/Banco_PSD/btm1.tlog" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Banco_PSD/src/main/java/Bank/Bank.java" afterPath="$PROJECT_DIR$/Banco_PSD/src/main/java/Bank/Bank.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/postgresql.conf" afterPath="$PROJECT_DIR$/DATABASE/postgresql.conf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/postmaster.pid" afterPath="$PROJECT_DIR$/DATABASE/postmaster.pid" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apache-activemq-5.14.3/data/activemq.log" afterPath="$PROJECT_DIR$/apache-activemq-5.14.3/data/activemq.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apache-activemq-5.14.3/data/activemq.pid" afterPath="$PROJECT_DIR$/apache-activemq-5.14.3/data/activemq.pid" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/db-1.log" afterPath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/db-1.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btm1.tlog" afterPath="$PROJECT_DIR$/btm1.tlog" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bolsa/Client.java" afterPath="$PROJECT_DIR$/src/main/java/bolsa/Client.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bolsa/Exchange.java" afterPath="$PROJECT_DIR$/src/main/java/bolsa/Exchange.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bolsa/Settlement.java" afterPath="$PROJECT_DIR$/src/main/java/bolsa/Settlement.java" />
     </list>
     <ignored path="PSD_Projeto.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -86,8 +45,8 @@
       <file leaf-file-name="Exchange.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/bolsa/Exchange.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="206" column="65" selection-start-line="206" selection-start-column="65" selection-end-line="206" selection-end-column="65" />
+            <state relative-caret-position="248">
+              <caret line="489" column="42" selection-start-line="489" selection-start-column="42" selection-end-line="489" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -98,7 +57,7 @@
       <file leaf-file-name="Client.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bolsa/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2265">
+            <state relative-caret-position="341">
               <caret line="198" column="13" selection-start-line="198" selection-start-column="13" selection-end-line="198" selection-end-column="13" />
               <folding />
             </state>
@@ -158,7 +117,7 @@
       <file leaf-file-name="Settlement.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bolsa/Settlement.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="945">
+            <state relative-caret-position="804">
               <caret line="63" column="149" selection-start-line="63" selection-start-column="149" selection-end-line="63" selection-end-column="149" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -782,7 +741,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1920" height="1055" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15368196" sideWeight="0.44893616" order="6" side_tool="false" content_ui="tabs" />
@@ -792,15 +751,15 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27854857" sideWeight="0.20744681" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16489361" sideWeight="0.48407644" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3276414" sideWeight="0.47765958" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28388473" sideWeight="0.6393617" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2796158" sideWeight="0.28776595" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2796158" sideWeight="0.7138298" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2796158" sideWeight="0.2861702" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17553191" sideWeight="0.6915052" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17553191" sideWeight="0.69185185" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13936171" sideWeight="0.49506173" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17553191" sideWeight="0.30849478" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17553191" sideWeight="0.30814815" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3991462" sideWeight="0.49361703" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1128,9 +1087,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bolsa/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="198" column="13" selection-start-line="198" selection-start-column="13" selection-end-line="198" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bolsa/Settlement.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="945">
+        <state relative-caret-position="804">
           <caret line="63" column="149" selection-start-line="63" selection-start-column="149" selection-end-line="63" selection-end-column="149" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1138,18 +1105,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bolsa/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2265">
-          <caret line="198" column="13" selection-start-line="198" selection-start-column="13" selection-end-line="198" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bolsa/Exchange.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="206" column="65" selection-start-line="206" selection-start-column="65" selection-end-line="206" selection-end-column="65" />
+        <state relative-caret-position="248">
+          <caret line="489" column="42" selection-start-line="489" selection-start-column="42" selection-end-line="489" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -19,6 +19,8 @@ bolsa/Ordem$1.class
 bolsa/Exchange$Authentication.class
 bolsa/Ordem$Order$1.class
 bolsa/Ordem$Order$OrderTypes.class
+bolsa/Exchange$CheckTransactions.class
+bolsa/Exchange$Pair.class
 bolsa/Exchange$1.class
 bolsa/Receive_Data.class
 bolsa/Exchange$ExchangeInstance.class

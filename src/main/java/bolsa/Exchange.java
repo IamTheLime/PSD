@@ -484,10 +484,16 @@ public class Exchange {
         listofusers.put("tiago","tiago");
         listofusers.put("rafael","rafael");
         listofusers.put("lima","lima");
+        listofusers.put("alexandre","alexandre");
+        listofusers.put("daniela","daniela");
+        listofusers.put("bruno","bruno");
+        listofusers.put("azevedo","azevedo");
+
         empresas.add("Empresa1");
         empresas.add("Empresa2");
         empresas.add("Empresa3");
         empresas.add("Empresa4");
+        empresas.add("Empresa5");
     }
 
     public static void main(String[] args) throws Exception {
