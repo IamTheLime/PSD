@@ -14,7 +14,6 @@ bolsa/Utilizador$User$Builder.class
 bolsa/Exchange.class
 bolsa/Transacao$Transaction.class
 bolsa/Exchange$CompanyOrders.class
-bolsa/Bank.class
 bolsa/Send_Data.class
 bolsa/Ordem$1.class
 bolsa/Exchange$Authentication.class
