@@ -1,0 +1,13 @@
+package bolsa;
+
+message Order {
+    required string username = 1;
+    required string empresa = 2;
+    required double preco = 3;
+    required int32 quantidade = 4;
+    enum OrderTypes { //tipo de ordem possivel, compra ou venda
+                      BUY = 0;
+                      SELL = 1;
+    }
+    required OrderTypes tipodeempresa = 5; //especificação do tipo de ordem
+}
