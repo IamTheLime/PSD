@@ -19,6 +19,7 @@ import javax.transaction.UserTransaction;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.util.*;
 
 /**
@@ -29,7 +30,7 @@ public class Exchange {
     //Basic classes for message creation
     private static Map <String, String> listofusers= new HashMap<String,String>();
     private static ArrayList<String> empresas = new ArrayList<String>();
-    private enum Type { DATA, EOF, IOE, ENTER, LEAVE, LINE, AUTH,INFO, SELLORDER,BUYORDER}
+    private enum Type { EOF, IOE, ENTER, LEAVE, LINE, AUTH,INFO,BUYER,SELLER,SELLORDER,BUYORDER}
     private static int MAXLEN=1024;
     static class Msg {
         final Type type;
@@ -63,7 +64,7 @@ public class Exchange {
                 if(listofusers.containsKey(user.getUsername())) {
                     if(listofusers.get(user.getUsername()).equals(user.getPassword())){
                         System.out.println("Conetado");
-                        this.dest.send(new Msg(Type.AUTH,null));
+                        this.dest.send(new Msg(Type.AUTH,user.getUsername()));
                     }
                     else{
                         System.out.println("Disconetado");
@@ -154,8 +155,8 @@ public class Exchange {
 
         protected Void doRun() throws InterruptedException, SuspendExecution {
 
-                System.out.println("Empresa" + empresa);
-                publisher.sendMore("Transaction");
+
+            publisher.sendMore("Transaction");
                 publisher.send(this.empresa+"\n"+
                                this.buyer+"\n"+
                                this.seller+"\n"+
@@ -203,8 +204,7 @@ public class Exchange {
                     case SELLORDER:
                         Ordem.Order ordemVenda = (Ordem.Order) msg.o;
                         publisher.sendMore(this.empresa);
-                        publisher.send("***Ordem de Compra***\n" +
-                                "Empresa: "+ordemVenda.getEmpresa()+"\n" +
+                        publisher.send("***Ordem de Venda***\n" +
                                 "Preço máximo: "+ordemVenda.getPreco()+"\n"+
                                 "Quantidade: "+ordemVenda.getQuantidade());
                         Stack <Ordem.Order> aux =sellOrder.get(ordemVenda.getPreco());
@@ -325,9 +325,30 @@ public class Exchange {
         }
 
     }
+  static class CheckTransactions extends Thread{
+        private ZMQ.Socket subscriber = null;
+        private ActorRef exchange = null;
+
+        CheckTransactions(ZMQ.Socket subscriber, ActorRef exchange){
+            this.exchange = exchange;
+            this.subscriber = subscriber;
+        }
+
+        public void run()
+        {
+            subscriber.subscribe("TransactionComplete".getBytes());
+            String aux = null;
+            while((aux = subscriber.recvStr(Charset.defaultCharset()))!=null){
+                if(aux.equals("TransactionComplete")) continue;
+                try{
+                exchange.send(new Msg(Type.LINE,aux));}
+                catch(Exception e){};
+            }
+        }
+    }
 
     static class ExchangeInstance extends BasicActor<Msg, Void> {
-        private Set<ActorRef> users = new HashSet<>();
+        private Map<String,ActorRef> users = new HashMap<>();
         private Map<String,ActorRef> empresasToActors= new HashMap<>();
 
         ExchangeInstance(Map<String,ActorRef> empresasToActors){
@@ -338,13 +359,16 @@ public class Exchange {
             while (receive(msg -> {
                 switch (msg.type) {
                     case ENTER:
-                        users.add((ActorRef) msg.o);
+                        users.put(((Pair) msg.o).username,((Pair) msg.o).actor);
                         return true;
                     case LEAVE:
                         users.remove(msg.o);
                         return true;
                     case LINE:
-                        for (ActorRef u : users) u.send(msg);
+                        String [] parts = ((String)msg.o).split("\n");
+                        for (String part : parts) System.out.println("LALALA"+part);
+                        users.get(parts[1]).send(new Msg(Type.BUYER,parts));
+                        users.get(parts[2]).send(new Msg(Type.SELLER,parts));
                         return true;
                     case SELLORDER:
                         Ordem.Order ordemVenda = (Ordem.Order) msg.o;
@@ -390,6 +414,16 @@ public class Exchange {
         }
     }
 
+    static class Pair {
+        public ActorRef<Msg> actor;
+        public String username;
+
+        public Pair (ActorRef<Msg> actor,String username) {
+            this.actor = actor;
+            this.username = username;
+        }
+    }
+
     static class Client extends BasicActor<Msg, Void> {
         final ActorRef exchange;
         final FiberSocketChannel socket;
@@ -397,18 +431,36 @@ public class Exchange {
         Client(ActorRef exchange, FiberSocketChannel socket) { this.exchange = exchange; this.socket = socket; }
 
         protected Void doRun() throws InterruptedException, SuspendExecution {
-           // new LineReader(self(), socket).spawn(); //para já vamos ignorar a utilização de um lineReader, é importante remover o flush
             new Authentication(self(),socket).spawn();
-            exchange.send(new Msg(Type.ENTER, self()));
             while (receive(msg -> {
                 try {
                     switch (msg.type) {
                         case AUTH:
                             loggedIn = true;
                             new ObjReader(self(),exchange,socket).spawn();
+                            exchange.send(new Msg(Type.ENTER, new Pair(self(),(String) msg.o))); //AQUI
                             return true;
-                        case DATA:
-                            exchange.send(new Msg(Type.INFO, msg.o));
+                        case BUYER:
+                            ByteBuffer bbfer = ByteBuffer.allocate(MAXLEN);
+                            CodedOutputStream cos = CodedOutputStream.newInstance(bbfer);
+                            String [] parts = (String [])msg.o;
+                            String aux = "*****Notificação******\n***Realizou a compra de "+ parts[4] +" acções a custo "+parts[3]+"****\n********";
+                            //cos.writeInt32NoTag(aux.length());
+                            cos.writeStringNoTag(aux);
+                            cos.flush();
+                            bbfer.flip();
+                            socket.write(bbfer);
+                            return true;
+                        case SELLER:
+                            ByteBuffer bbfer2 = ByteBuffer.allocate(MAXLEN);
+                            CodedOutputStream cos2 = CodedOutputStream.newInstance(bbfer2);
+                            String [] parts2 = (String [])msg.o;
+                            String aux2 = "*****Notificação******\n***Realizou a venda de "+ parts2[4] +" acções a custo "+parts2[3]+"***\n********";
+                            //cos2.writeInt32NoTag(aux2.length());
+                            cos2.writeStringNoTag(aux2);
+                            cos2.flush();
+                            bbfer2.flip();
+                            socket.write(bbfer2);
                             return true;
                         case EOF:
                             exchange.send(new Msg(Type.LEAVE,self()));
@@ -418,9 +470,6 @@ public class Exchange {
                             exchange.send(new Msg(Type.LEAVE, self()));
                             socket.close();
                             return false;
-                        case LINE:
-                            socket.write(ByteBuffer.wrap((byte[])msg.o));
-                            return true;
                     }
                 } catch (IOException e) {
                     exchange.send(new Msg(Type.LEAVE, self()));
@@ -433,8 +482,8 @@ public class Exchange {
 
     private static void generateUsersAndCompanies(){
         listofusers.put("tiago","tiago");
-        listofusers.put("rafuru","rafuru");
-        listofusers.put("desu","desu");
+        listofusers.put("rafael","rafael");
+        listofusers.put("lima","lima");
         empresas.add("Empresa1");
         empresas.add("Empresa2");
         empresas.add("Empresa3");
@@ -450,9 +499,13 @@ public class Exchange {
         ZMQ.Context context2 = ZMQ.context(2);
         ZMQ.Socket publisher2 = context2.socket(ZMQ.PUB);
         publisher2.bind("tcp://127.0.0.1:6667");
+        ZMQ.Context context3 = ZMQ.context(3);
+        ZMQ.Socket subscriber = context3.socket(ZMQ.SUB);
+        subscriber.bind("tcp://127.0.0.1:6668");
 
         Map<String,ActorRef> empresasToActors = new HashMap<String,ActorRef>();
         ActorRef exchange = new ExchangeInstance(empresasToActors).spawn();
+        new CheckTransactions(subscriber,exchange).start();
         for (int i=0; i<empresas.size();i++){
             empresasToActors.put(empresas.get(i),new CompanyOrders(empresas.get(i),exchange,publisher,publisher2).spawn());
         }

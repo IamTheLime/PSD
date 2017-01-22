@@ -1,5 +1,6 @@
 package bolsa;
 
+import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
 import org.zeromq.ZMQ;
 
@@ -26,9 +27,12 @@ class Receive_Data extends Thread{
     }
     public void run(){
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            CodedInputStream cis = CodedInputStream.newInstance(connection.getInputStream());
             String buffer;
-            while((buffer = reader.readLine())!=null){ System.out.println(buffer);}
+
+            while(( buffer = cis.readString())!=null){
+                System.out.println(buffer);
+            }
         }
         catch(Exception e){
             System.out.println("Disconetado do servidor");
