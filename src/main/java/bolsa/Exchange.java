@@ -8,6 +8,7 @@ import co.paralleluniverse.fibers.SuspendExecution;
 import co.paralleluniverse.fibers.io.FiberServerSocketChannel;
 import co.paralleluniverse.fibers.io.FiberSocketChannel;
 import com.google.protobuf.CodedInputStream;
+import com.google.protobuf.CodedOutputStream;
 import com.google.protobuf.Message;
 import org.zeromq.ZMQ;
 
@@ -128,13 +129,15 @@ public class Exchange {
         private String seller;
         private double agreedprice;
         private String empresa;
+        private ZMQ.Socket publisher;
 
-        TransactionManager(int quantity, String buyer, String seller, double agreedprice, String empresa){
+        TransactionManager(int quantity, String buyer, String seller, double agreedprice, String empresa, ZMQ.Socket publisher){
             this.transaction_quantity = quantity;
             this.buyer = buyer;
             this.seller = seller;
             this.agreedprice = agreedprice;
             this.empresa = empresa;
+            this.publisher=publisher;
         }
 
         static Transacao.Transaction createTransaction(String empresa, String buyer, String seller, int quantidade, double agreedprice){
@@ -150,27 +153,17 @@ public class Exchange {
 
 
         protected Void doRun() throws InterruptedException, SuspendExecution {
-            try {
-                System.out.println(this.empresa+" "+this.agreedprice);
 
-                Context ctx = new InitialContext();
-                UserTransaction txn = (UserTransaction) ctx.lookup("java:comp/UserTransaction");
-                txn.begin();
-                ConnectionFactory cf = (ConnectionFactory) ctx.lookup("jms/settlementConnection");
-                javax.jms.Connection c1 = cf.createConnection();
-                Session s = c1.createSession(false,0);
-                Destination q = s.createTopic("TransactionToSettlement");
-                MessageProducer p = s.createProducer(q);
-                ObjectMessage obj  = s.createObjectMessage(createTransaction(this.empresa, this.buyer, this.seller, this.transaction_quantity, this.agreedprice));
-                p.send(obj);
-                p.close();
-                s.close();
-                c1.close();
-                txn.commit();
-                System.out.println("Been there done that");
-            }
-            catch (Exception e) {e.printStackTrace();}
+                System.out.println("Empresa" + empresa);
+                publisher.sendMore("Transaction");
+                publisher.send(this.empresa+"\n"+
+                               this.buyer+"\n"+
+                               this.seller+"\n"+
+                               this.agreedprice+"\n"+
+                               this.transaction_quantity);
+
             return null;
+
         }
 
     }
@@ -181,11 +174,13 @@ public class Exchange {
         private TreeMap<Double,Stack<Ordem.Order>> sellOrder = null;
         private TreeMap<Double,Stack<Ordem.Order>> buyOrder = null;
         private ZMQ.Socket publisher = null;
+        private ZMQ.Socket publisher2 = null;
 
-        CompanyOrders(String empresa,ActorRef<Msg>exchange,ZMQ.Socket publisher){
+        CompanyOrders(String empresa,ActorRef<Msg>exchange,ZMQ.Socket publisher,ZMQ.Socket publisher2){
             this.exchange=exchange;
             this.empresa=empresa;
             this.publisher=publisher;
+            this.publisher2=publisher2;
             sellOrder = new TreeMap<Double, Stack<Ordem.Order>>();
             buyOrder = new TreeMap<Double, Stack<Ordem.Order>>();
 
@@ -208,7 +203,10 @@ public class Exchange {
                     case SELLORDER:
                         Ordem.Order ordemVenda = (Ordem.Order) msg.o;
                         publisher.sendMore(this.empresa);
-                        publisher.send("formatar texto da empresa Venda");
+                        publisher.send("***Ordem de Compra***\n" +
+                                "Empresa: "+ordemVenda.getEmpresa()+"\n" +
+                                "Preço máximo: "+ordemVenda.getPreco()+"\n"+
+                                "Quantidade: "+ordemVenda.getQuantidade());
                         Stack <Ordem.Order> aux =sellOrder.get(ordemVenda.getPreco());
                         if ((aux) !=null){
                             aux.push(ordemVenda);
@@ -232,7 +230,8 @@ public class Exchange {
                                         orderBuy.getUsername(),
                                         orderSell.getUsername(),
                                         (orderSell.getPreco()+orderBuy.getPreco())/2,
-                                        empresa)
+                                        empresa,
+                                        publisher2)
                                             .spawn();
                             }
                             else if(orderSell.getQuantidade() < orderBuy.getQuantidade()){
@@ -242,7 +241,8 @@ public class Exchange {
                                         orderBuy.getUsername(),
                                         orderSell.getUsername(),
                                         (orderSell.getPreco()+orderBuy.getPreco())/2,
-                                        empresa)
+                                        empresa,
+                                        publisher2)
                                         .spawn();
                             }
                             else {
@@ -252,19 +252,20 @@ public class Exchange {
                                         orderBuy.getUsername(),
                                         orderSell.getUsername(),
                                         (orderSell.getPreco()+orderBuy.getPreco())/2,
-                                        empresa)
+                                        empresa,
+                                        publisher2)
                                         .spawn();
                             }
-                            /*
-                            System.out.println("AQUI"+this.empresa);
-                            publisher.sendMore(this.empresa);
-                            publisher.send("aqui caralho");*/
+
                         }
                         return true;
                     case BUYORDER:
                         Ordem.Order ordemCompra = (Ordem.Order) msg.o;
                         publisher.sendMore(this.empresa);
-                        publisher.send("formatar texto da empresa Compra");
+                        publisher.send("***Ordem de Compra***\n" +
+                                       "Empresa: "+ordemCompra.getEmpresa()+"\n" +
+                                        "Preço máximo: "+ordemCompra.getPreco()+"\n"+
+                                        "Quantidade: "+ordemCompra.getQuantidade());
 
                         Stack <Ordem.Order> aux2 =buyOrder.get(ordemCompra.getPreco());
                         if ((aux2) !=null){
@@ -289,7 +290,8 @@ public class Exchange {
                                         orderBuy.getUsername(),
                                         orderSell.getUsername(),
                                         (orderSell.getPreco()+orderBuy.getPreco())/2,
-                                        empresa)
+                                        empresa,
+                                        publisher2)
                                         .spawn();
                             }
                             else if(orderSell.getQuantidade() < orderBuy.getQuantidade()){
@@ -299,7 +301,8 @@ public class Exchange {
                                         orderBuy.getUsername(),
                                         orderSell.getUsername(),
                                         (orderSell.getPreco()+orderBuy.getPreco())/2,
-                                        empresa)
+                                        empresa,
+                                        publisher2)
                                         .spawn();
                             }
                             else {
@@ -309,7 +312,8 @@ public class Exchange {
                                         orderBuy.getUsername(),
                                         orderSell.getUsername(),
                                         (orderSell.getPreco()+orderBuy.getPreco())/2,
-                                        empresa)
+                                        empresa,
+                                        publisher2)
                                         .spawn();
                             }
                         }
@@ -443,10 +447,14 @@ public class Exchange {
         ZMQ.Context context = ZMQ.context(1);
         ZMQ.Socket publisher = context.socket(ZMQ.PUB);
         publisher.bind("tcp://127.0.0.1:6666");
+        ZMQ.Context context2 = ZMQ.context(2);
+        ZMQ.Socket publisher2 = context2.socket(ZMQ.PUB);
+        publisher2.bind("tcp://127.0.0.1:6667");
+
         Map<String,ActorRef> empresasToActors = new HashMap<String,ActorRef>();
         ActorRef exchange = new ExchangeInstance(empresasToActors).spawn();
         for (int i=0; i<empresas.size();i++){
-            empresasToActors.put(empresas.get(i),new CompanyOrders(empresas.get(i),exchange,publisher).spawn());
+            empresasToActors.put(empresas.get(i),new CompanyOrders(empresas.get(i),exchange,publisher,publisher2).spawn());
         }
         Acceptor acceptor = new Acceptor(port, exchange);
         acceptor.spawn();

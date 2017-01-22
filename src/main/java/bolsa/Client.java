@@ -169,17 +169,6 @@ class Send_Data extends Thread {
             System.out.println("Disconetado do servidor");
         }
 
-        /*
-        BufferedReader inputFromConsole = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            PrintWriter writer = new PrintWriter(this.connection.getOutputStream());
-            String buffer;
-            while ((buffer = inputFromConsole.readLine()) != null) {
-                writer.println(buffer);
-                writer.flush();
-            }
-        }
-        catch (Exception e) {e.printStackTrace();}*/
     }
 
     static Utilizador.User createUser(String username, String password) {
