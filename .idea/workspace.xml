@@ -2,32 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a1600a4f-9680-4383-b4b3-c275653f1e8b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bitronix-res.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/bolsa/Bank.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/bolsa/Settlement.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/proto/transacao.proto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/bitronix-default-config.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/jndi.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/main.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$1.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Acceptor.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Acceptor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Authentication.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Authentication.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Client.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Client.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$CompanyOrders.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$CompanyOrders.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$ExchangeInstance.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$ExchangeInstance.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Msg.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Msg.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$ObjReader.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$ObjReader.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Type.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Type.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_0.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_0.stat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_12410.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_12410.stat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_16384.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_16384.stat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_16398.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_16398.stat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/global.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/global.stat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btm1.tlog" afterPath="$PROJECT_DIR$/btm1.tlog" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Bank.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Bank.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PSD_Projeto.iml" afterPath="$PROJECT_DIR$/PSD_Projeto.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bolsa/Exchange.java" afterPath="$PROJECT_DIR$/src/main/java/bolsa/Exchange.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitronix-res.properties" afterPath="$PROJECT_DIR$/bitronix-res.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bolsa/Bank.java" afterPath="$PROJECT_DIR$/src/main/java/bolsa/Bank.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bolsa/Settlement.java" afterPath="$PROJECT_DIR$/src/main/java/bolsa/Settlement.java" />
     </list>
     <ignored path="PSD_Projeto.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -79,7 +64,7 @@
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="857">
+            <state relative-caret-position="194">
               <caret line="130" column="31" selection-start-line="130" selection-start-column="31" selection-end-line="130" selection-end-column="31" />
               <folding />
             </state>
@@ -90,7 +75,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
-              <caret line="3" column="74" selection-start-line="3" selection-start-column="74" selection-end-line="3" selection-end-column="74" />
+              <caret line="3" column="33" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -109,18 +94,20 @@
       <file leaf-file-name="Bank.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bolsa/Bank.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding />
+            <state relative-caret-position="221">
+              <caret line="18" column="71" selection-start-line="18" selection-start-column="71" selection-end-line="18" selection-end-column="71" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Settlement.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Settlement.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/bolsa/Settlement.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="16" column="70" selection-start-line="16" selection-start-column="70" selection-end-line="16" selection-end-column="85" />
+            <state relative-caret-position="351">
+              <caret line="33" column="49" selection-start-line="33" selection-start-column="49" selection-end-line="33" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -138,11 +125,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bitronix-res.properties" pinned="false" current-in-tab="true">
+      <file leaf-file-name="bitronix-res.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bitronix-res.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="29" column="39" selection-start-line="29" selection-start-column="39" selection-end-line="29" selection-end-column="39" />
+            <state relative-caret-position="315">
+              <caret line="21" column="72" selection-start-line="21" selection-start-column="72" selection-end-line="21" selection-end-column="72" />
               <folding />
             </state>
           </provider>
@@ -199,8 +186,9 @@
         <option value="$PROJECT_DIR$/src/main/bitronix-res.properties" />
         <option value="$PROJECT_DIR$/src/bitronix-res.properties" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/bolsa/Settlement.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bolsa/Bank.java" />
         <option value="$PROJECT_DIR$/bitronix-res.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/bolsa/Settlement.java" />
       </list>
     </option>
   </component>
@@ -385,6 +373,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="proto" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1112,14 +1104,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bolsa/Bank.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bolsa/Exchange.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2431">
@@ -1146,10 +1130,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="74" selection-start-line="3" selection-start-column="74" selection-end-line="3" selection-end-column="74" />
+        <state relative-caret-position="194">
+          <caret line="130" column="31" selection-start-line="130" selection-start-column="31" selection-end-line="130" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bolsa/Bank.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="18" column="71" selection-start-line="18" selection-start-column="71" selection-end-line="18" selection-end-column="71" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/bitronix-default-config.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1162,37 +1164,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/bitronix-default-config.properties">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        <state relative-caret-position="51">
+          <caret line="3" column="33" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/bitronix-res.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="857">
-          <caret line="130" column="31" selection-start-line="130" selection-start-column="31" selection-end-line="130" selection-end-column="31" />
+        <state relative-caret-position="315">
+          <caret line="21" column="72" selection-start-line="21" selection-start-column="72" selection-end-line="21" selection-end-column="72" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bolsa/Settlement.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="16" column="70" selection-start-line="16" selection-start-column="70" selection-end-line="16" selection-end-column="85" />
+        <state relative-caret-position="351">
+          <caret line="33" column="49" selection-start-line="33" selection-start-column="49" selection-end-line="33" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bitronix-res.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="29" column="39" selection-start-line="29" selection-start-column="39" selection-end-line="29" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
