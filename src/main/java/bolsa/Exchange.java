@@ -366,7 +366,6 @@ public class Exchange {
                         return true;
                     case LINE:
                         String [] parts = ((String)msg.o).split("\n");
-                        for (String part : parts) System.out.println("LALALA"+part);
                         users.get(parts[1]).send(new Msg(Type.BUYER,parts));
                         users.get(parts[2]).send(new Msg(Type.SELLER,parts));
                         return true;

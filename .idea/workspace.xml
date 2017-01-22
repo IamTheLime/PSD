@@ -2,31 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a1600a4f-9680-4383-b4b3-c275653f1e8b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/base/16398/16399" afterPath="$PROJECT_DIR$/DATABASE/base/16398/16399" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/base/16398/16405" afterPath="$PROJECT_DIR$/DATABASE/base/16398/16405" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/global/pg_control" afterPath="$PROJECT_DIR$/DATABASE/global/pg_control" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_clog/0000" afterPath="$PROJECT_DIR$/DATABASE/pg_clog/0000" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_0.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_0.stat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_12410.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_12410.stat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_16384.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_16384.stat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_16398.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_16398.stat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/global.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/global.stat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_xlog/000000010000000000000001" afterPath="$PROJECT_DIR$/DATABASE/pg_xlog/000000010000000000000001" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/db.data" afterPath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/db.data" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/db.redo" afterPath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/db.redo" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Acceptor.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Acceptor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$CheckTransactions.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$CheckTransactions.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Client.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Client.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$CompanyOrders.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$CompanyOrders.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$ExchangeInstance.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$ExchangeInstance.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Pair.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Pair.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Banco_PSD/.idea/workspace.xml" afterPath="$PROJECT_DIR$/Banco_PSD/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apache-activemq-5.14.3/data/activemq.log" afterPath="$PROJECT_DIR$/apache-activemq-5.14.3/data/activemq.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/db-1.log" afterPath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/db-1.log" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bolsa/Exchange.java" afterPath="$PROJECT_DIR$/src/main/java/bolsa/Exchange.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
     </list>
     <ignored path="PSD_Projeto.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -59,11 +36,21 @@
       <file leaf-file-name="Exchange.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/bolsa/Exchange.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="489" column="42" selection-start-line="489" selection-start-column="42" selection-end-line="489" selection-end-column="42" />
+            <state relative-caret-position="181">
+              <caret line="368" column="0" selection-start-line="368" selection-start-column="0" selection-end-line="368" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="jndi.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/jndi.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -112,7 +99,7 @@
         <entry file="file://$PROJECT_DIR$/createpgfolder.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -207,9 +194,9 @@
     <treeState />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="25" />
-    <option name="width" value="1920" />
-    <option name="height" value="1055" />
+    <option name="x" value="1920" />
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -252,6 +239,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="PSD" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PSD_Projeto" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PSD" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -340,7 +349,7 @@
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.ignored.files" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="project.structure.last.edited" value="Facets" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Banco_PSD" />
@@ -754,8 +763,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="25" width="1920" height="1055" extended-state="6" />
-    <editor active="false" />
+    <frame x="1920" y="0" width="1440" height="900" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15368196" sideWeight="0.44893616" order="6" side_tool="false" content_ui="tabs" />
@@ -765,15 +774,15 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27854857" sideWeight="0.20744681" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16489361" sideWeight="0.48407644" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3276414" sideWeight="0.47765958" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2796158" sideWeight="0.4994681" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2796158" sideWeight="0.5005319" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20588236" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20588236" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17553191" sideWeight="0.69185185" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23571429" sideWeight="0.69082123" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13936171" sideWeight="0.49506173" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17553191" sideWeight="0.30814815" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23571429" sideWeight="0.30917874" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3991462" sideWeight="0.49361703" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1032,13 +1041,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/jndi.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/btm2.tlog">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1053,19 +1055,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="33" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/d2/bitronix-res.properties" />
     <entry file="file://$PROJECT_DIR$/createpgfolder.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1074,14 +1068,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="47" column="22" selection-start-line="47" selection-start-column="22" selection-end-line="47" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/bitronix-default-config.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="58" selection-start-line="0" selection-start-column="58" selection-end-line="0" selection-end-column="58" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1101,14 +1087,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bolsa/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="198" column="13" selection-start-line="198" selection-start-column="13" selection-end-line="198" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bolsa/Settlement.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="804">
@@ -1119,10 +1097,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/jndi.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/bitronix-default-config.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="58" selection-start-line="0" selection-start-column="58" selection-end-line="0" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="33" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bolsa/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="198" column="13" selection-start-line="198" selection-start-column="13" selection-end-line="198" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bolsa/Exchange.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="489" column="42" selection-start-line="489" selection-start-column="42" selection-end-line="489" selection-end-column="42" />
+        <state relative-caret-position="181">
+          <caret line="368" column="0" selection-start-line="368" selection-start-column="0" selection-end-line="368" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
