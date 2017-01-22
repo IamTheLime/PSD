@@ -2,17 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a1600a4f-9680-4383-b4b3-c275653f1e8b" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/base/16398/16399" afterPath="$PROJECT_DIR$/DATABASE/base/16398/16399" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/base/16398/16405" afterPath="$PROJECT_DIR$/DATABASE/base/16398/16405" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/global/pg_control" afterPath="$PROJECT_DIR$/DATABASE/global/pg_control" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_clog/0000" afterPath="$PROJECT_DIR$/DATABASE/pg_clog/0000" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_0.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_0.stat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_12410.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_12410.stat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_16384.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_16384.stat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_16398.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/db_16398.stat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/global.stat" afterPath="$PROJECT_DIR$/DATABASE/pg_stat_tmp/global.stat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE/pg_xlog/000000010000000000000001" afterPath="$PROJECT_DIR$/DATABASE/pg_xlog/000000010000000000000001" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/db.data" afterPath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/db.data" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/db.redo" afterPath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/db.redo" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Acceptor.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Acceptor.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$CheckTransactions.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$CheckTransactions.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Client.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Client.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$CompanyOrders.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$CompanyOrders.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$ExchangeInstance.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$ExchangeInstance.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Pair.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange$Pair.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/bolsa/Exchange.class" afterPath="$PROJECT_DIR$/target/classes/bolsa/Exchange.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Banco_PSD/.idea/workspace.xml" afterPath="$PROJECT_DIR$/Banco_PSD/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apache-activemq-5.14.3/data/activemq.log" afterPath="$PROJECT_DIR$/apache-activemq-5.14.3/data/activemq.log" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/db-1.log" afterPath="$PROJECT_DIR$/apache-activemq-5.14.3/data/kahadb/db-1.log" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bolsa/Exchange.java" afterPath="$PROJECT_DIR$/src/main/java/bolsa/Exchange.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
     </list>
     <ignored path="PSD_Projeto.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -751,8 +765,8 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27854857" sideWeight="0.20744681" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16489361" sideWeight="0.48407644" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3276414" sideWeight="0.47765958" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2796158" sideWeight="0.7138298" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2796158" sideWeight="0.2861702" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2796158" sideWeight="0.4994681" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2796158" sideWeight="0.5005319" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17553191" sideWeight="0.69185185" order="0" side_tool="false" content_ui="combo" />

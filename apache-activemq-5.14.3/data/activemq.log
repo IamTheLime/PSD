@@ -2744,3 +2744,57 @@ org.springframework.web.util.NestedServletException: Request processing failed; 
 2017-01-22 21:14:01,007 | WARN  | Transport Connection to: tcp://127.0.0.1:53146 failed: java.io.EOFException | org.apache.activemq.broker.TransportConnection.Transport | ActiveMQ Transport: tcp:///127.0.0.1:53146@61616
 2017-01-22 21:14:01,006 | WARN  | Transport Connection to: tcp://127.0.0.1:54574 failed: java.io.EOFException | org.apache.activemq.broker.TransportConnection.Transport | ActiveMQ Transport: tcp:///127.0.0.1:54574@61616
 2017-01-22 21:14:01,006 | WARN  | Transport Connection to: tcp://127.0.0.1:55374 failed: java.io.EOFException | org.apache.activemq.broker.TransportConnection.Transport | ActiveMQ Transport: tcp:///127.0.0.1:55374@61616
+2017-01-22 21:24:20,016 | INFO  | Refreshing org.apache.activemq.xbean.XBeanBrokerFactory$1@60f82f98: startup date [Sun Jan 22 21:24:20 WET 2017]; root of context hierarchy | org.apache.activemq.xbean.XBeanBrokerFactory$1 | main
+2017-01-22 21:24:20,657 | INFO  | Using Persistence Adapter: KahaDBPersistenceAdapter[/home/tiago/Documents/PROJETOS/PSD/PSD/apache-activemq-5.14.3/data/kahadb] | org.apache.activemq.broker.BrokerService | main
+2017-01-22 21:24:20,743 | INFO  | KahaDB is version 6 | org.apache.activemq.store.kahadb.MessageDatabase | main
+2017-01-22 21:24:20,816 | INFO  | Recovering from the journal @1:2442174 | org.apache.activemq.store.kahadb.MessageDatabase | main
+2017-01-22 21:24:20,825 | INFO  | Recovery replayed 254 operations from the journal in 0.068 seconds. | org.apache.activemq.store.kahadb.MessageDatabase | main
+2017-01-22 21:24:20,832 | INFO  | PListStore:[/home/tiago/Documents/PROJETOS/PSD/PSD/apache-activemq-5.14.3/data/localhost/tmp_storage] started | org.apache.activemq.store.kahadb.plist.PListStoreImpl | main
+2017-01-22 21:24:20,966 | INFO  | Apache ActiveMQ 5.14.3 (localhost, ID:tiago-pc-33935-1485120260841-0:1) is starting | org.apache.activemq.broker.BrokerService | main
+2017-01-22 21:24:21,095 | INFO  | Listening for connections at: tcp://tiago-pc:61616?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2017-01-22 21:24:21,097 | INFO  | Connector openwire started | org.apache.activemq.broker.TransportConnector | main
+2017-01-22 21:24:21,100 | INFO  | Listening for connections at: amqp://tiago-pc:5672?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2017-01-22 21:24:21,101 | INFO  | Connector amqp started | org.apache.activemq.broker.TransportConnector | main
+2017-01-22 21:24:21,103 | INFO  | Listening for connections at: stomp://tiago-pc:61613?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2017-01-22 21:24:21,104 | INFO  | Connector stomp started | org.apache.activemq.broker.TransportConnector | main
+2017-01-22 21:24:21,107 | INFO  | Listening for connections at: mqtt://tiago-pc:1883?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2017-01-22 21:24:21,108 | INFO  | Connector mqtt started | org.apache.activemq.broker.TransportConnector | main
+2017-01-22 21:24:21,221 | WARN  | ServletContext@o.e.j.s.ServletContextHandler@7749bf93{/,null,STARTING} has uncovered http methods for path: / | org.eclipse.jetty.security.SecurityHandler | main
+2017-01-22 21:24:21,262 | INFO  | Listening for connections at ws://tiago-pc:61614?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.ws.WSTransportServer | main
+2017-01-22 21:24:21,264 | INFO  | Connector ws started | org.apache.activemq.broker.TransportConnector | main
+2017-01-22 21:24:21,264 | INFO  | Apache ActiveMQ 5.14.3 (localhost, ID:tiago-pc-33935-1485120260841-0:1) started | org.apache.activemq.broker.BrokerService | main
+2017-01-22 21:24:21,265 | INFO  | For help or more information please see: http://activemq.apache.org | org.apache.activemq.broker.BrokerService | main
+2017-01-22 21:24:21,266 | WARN  | Store limit is 102400 mb (current store usage is 2 mb). The data directory: /home/tiago/Documents/PROJETOS/PSD/PSD/apache-activemq-5.14.3/data/kahadb only has 71225 mb of usable space. - resetting to maximum available disk space: 71225 mb | org.apache.activemq.broker.BrokerService | main
+2017-01-22 21:24:21,592 | INFO  | No Spring WebApplicationInitializer types detected on classpath | /admin | main
+2017-01-22 21:24:21,686 | INFO  | ActiveMQ WebConsole available at http://0.0.0.0:8161/ | org.apache.activemq.web.WebConsoleStarter | main
+2017-01-22 21:24:21,686 | INFO  | ActiveMQ Jolokia REST API available at http://0.0.0.0:8161/api/jolokia/ | org.apache.activemq.web.WebConsoleStarter | main
+2017-01-22 21:24:21,716 | INFO  | Initializing Spring FrameworkServlet 'dispatcher' | /admin | main
+2017-01-22 21:24:21,898 | INFO  | No Spring WebApplicationInitializer types detected on classpath | /api | main
+2017-01-22 21:24:21,926 | INFO  | jolokia-agent: Using policy access restrictor classpath:/jolokia-access.xml | /api | main
+2017-01-22 21:25:56,160 | INFO  | Refreshing org.apache.activemq.xbean.XBeanBrokerFactory$1@60f82f98: startup date [Sun Jan 22 21:25:56 WET 2017]; root of context hierarchy | org.apache.activemq.xbean.XBeanBrokerFactory$1 | main
+2017-01-22 21:25:56,805 | INFO  | Using Persistence Adapter: KahaDBPersistenceAdapter[/home/tiago/Documents/PROJETOS/PSD/PSD/apache-activemq-5.14.3/data/kahadb] | org.apache.activemq.broker.BrokerService | main
+2017-01-22 21:25:56,890 | INFO  | KahaDB is version 6 | org.apache.activemq.store.kahadb.MessageDatabase | main
+2017-01-22 21:25:56,955 | INFO  | Recovering from the journal @1:2442174 | org.apache.activemq.store.kahadb.MessageDatabase | main
+2017-01-22 21:25:56,964 | INFO  | Recovery replayed 255 operations from the journal in 0.062 seconds. | org.apache.activemq.store.kahadb.MessageDatabase | main
+2017-01-22 21:25:56,970 | INFO  | PListStore:[/home/tiago/Documents/PROJETOS/PSD/PSD/apache-activemq-5.14.3/data/localhost/tmp_storage] started | org.apache.activemq.store.kahadb.plist.PListStoreImpl | main
+2017-01-22 21:25:57,100 | INFO  | Apache ActiveMQ 5.14.3 (localhost, ID:tiago-pc-36175-1485120356980-0:1) is starting | org.apache.activemq.broker.BrokerService | main
+2017-01-22 21:25:57,214 | INFO  | Listening for connections at: tcp://tiago-pc:61616?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2017-01-22 21:25:57,216 | INFO  | Connector openwire started | org.apache.activemq.broker.TransportConnector | main
+2017-01-22 21:25:57,219 | INFO  | Listening for connections at: amqp://tiago-pc:5672?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2017-01-22 21:25:57,220 | INFO  | Connector amqp started | org.apache.activemq.broker.TransportConnector | main
+2017-01-22 21:25:57,222 | INFO  | Listening for connections at: stomp://tiago-pc:61613?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2017-01-22 21:25:57,223 | INFO  | Connector stomp started | org.apache.activemq.broker.TransportConnector | main
+2017-01-22 21:25:57,226 | INFO  | Listening for connections at: mqtt://tiago-pc:1883?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2017-01-22 21:25:57,227 | INFO  | Connector mqtt started | org.apache.activemq.broker.TransportConnector | main
+2017-01-22 21:25:57,337 | WARN  | ServletContext@o.e.j.s.ServletContextHandler@7749bf93{/,null,STARTING} has uncovered http methods for path: / | org.eclipse.jetty.security.SecurityHandler | main
+2017-01-22 21:25:57,379 | INFO  | Listening for connections at ws://tiago-pc:61614?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.ws.WSTransportServer | main
+2017-01-22 21:25:57,380 | INFO  | Connector ws started | org.apache.activemq.broker.TransportConnector | main
+2017-01-22 21:25:57,381 | INFO  | Apache ActiveMQ 5.14.3 (localhost, ID:tiago-pc-36175-1485120356980-0:1) started | org.apache.activemq.broker.BrokerService | main
+2017-01-22 21:25:57,381 | INFO  | For help or more information please see: http://activemq.apache.org | org.apache.activemq.broker.BrokerService | main
+2017-01-22 21:25:57,382 | WARN  | Store limit is 102400 mb (current store usage is 2 mb). The data directory: /home/tiago/Documents/PROJETOS/PSD/PSD/apache-activemq-5.14.3/data/kahadb only has 71219 mb of usable space. - resetting to maximum available disk space: 71219 mb | org.apache.activemq.broker.BrokerService | main
+2017-01-22 21:25:57,719 | INFO  | No Spring WebApplicationInitializer types detected on classpath | /admin | main
+2017-01-22 21:25:57,797 | INFO  | ActiveMQ WebConsole available at http://0.0.0.0:8161/ | org.apache.activemq.web.WebConsoleStarter | main
+2017-01-22 21:25:57,797 | INFO  | ActiveMQ Jolokia REST API available at http://0.0.0.0:8161/api/jolokia/ | org.apache.activemq.web.WebConsoleStarter | main
+2017-01-22 21:25:57,829 | INFO  | Initializing Spring FrameworkServlet 'dispatcher' | /admin | main
+2017-01-22 21:25:58,001 | INFO  | No Spring WebApplicationInitializer types detected on classpath | /api | main
+2017-01-22 21:25:58,026 | INFO  | jolokia-agent: Using policy access restrictor classpath:/jolokia-access.xml | /api | main
