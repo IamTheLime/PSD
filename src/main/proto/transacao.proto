@@ -1,0 +1,10 @@
+package bolsa;
+
+message Transaction {
+    required string seller = 1;
+    required string buyer = 2;
+    required string empresa = 3;
+    required double preco = 4;
+    required int32 quantidade = 5;
+
+}

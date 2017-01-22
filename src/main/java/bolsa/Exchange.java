@@ -3,6 +3,7 @@ package bolsa;
 import co.paralleluniverse.actors.Actor;
 import co.paralleluniverse.actors.ActorRef;
 import co.paralleluniverse.actors.BasicActor;
+import co.paralleluniverse.actors.MessageProcessor;
 import co.paralleluniverse.fibers.SuspendExecution;
 import co.paralleluniverse.fibers.io.FiberServerSocketChannel;
 import co.paralleluniverse.fibers.io.FiberSocketChannel;
@@ -10,6 +11,10 @@ import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.Message;
 import org.zeromq.ZMQ;
 
+import javax.jms.*;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.transaction.UserTransaction;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -117,20 +122,84 @@ public class Exchange {
         }
     }
 
+    static class TransactionManager extends BasicActor<Msg,Void> {
+        private int transaction_quantity;
+        private String buyer;
+        private String seller;
+        private double agreedprice;
+        private String empresa;
+
+        TransactionManager(int quantity, String buyer, String seller, double agreedprice, String empresa){
+            this.transaction_quantity = quantity;
+            this.buyer = buyer;
+            this.seller = seller;
+            this.agreedprice = agreedprice;
+            this.empresa = empresa;
+        }
+
+        static Transacao.Transaction createTransaction(String empresa, String buyer, String seller, int quantidade, double agreedprice){
+            return
+                    Transacao.Transaction.newBuilder()
+                            .setEmpresa(empresa)
+                            .setBuyer(buyer)
+                            .setSeller(seller)
+                            .setQuantidade(quantidade)
+                            .setPreco(agreedprice)
+                            .build();
+        }
+
+
+        protected Void doRun() throws InterruptedException, SuspendExecution {
+            try {
+                System.out.println("Teste");
+
+                Context ctx = new InitialContext();
+                UserTransaction txn = (UserTransaction) ctx.lookup("java:comp/UserTransaction");
+                txn.begin();
+                ConnectionFactory cf = (ConnectionFactory) ctx.lookup("jms/settlementConn");
+                javax.jms.Connection c1 = cf.createConnection();
+                Session s = c1.createSession(false,0);
+                Destination q = s.createTopic("TransactionToSettlement");
+                MessageProducer p = s.createProducer(q);
+                ObjectMessage obj  = s.createObjectMessage(createTransaction(this.empresa, this.buyer, this.seller, this.transaction_quantity, this.agreedprice));
+                p.send(obj);
+                p.close();
+                s.close();
+                c1.close();
+                txn.commit();
+                System.out.println("Been there done that");
+            }
+            catch (Exception e) {e.printStackTrace();}
+            return null;
+        }
+
+    }
+
     static class CompanyOrders extends BasicActor <Msg,Void> {//Esta classe trata de gerar os publishing servers aos quais se irão ligar os subscritores, adicionalmente irá tratar de todas as exchanges ligadas a uma determinada empresa
         private String empresa;
         private ActorRef<Msg> exchange;
-        private TreeMap<Double,Ordem.Order> sellOrder = null;
-        private TreeMap<Double,Ordem.Order> buyOrder = null;
+        private TreeMap<Double,Stack<Ordem.Order>> sellOrder = null;
+        private TreeMap<Double,Stack<Ordem.Order>> buyOrder = null;
         private ZMQ.Socket publisher = null;
 
         CompanyOrders(String empresa,ActorRef<Msg>exchange,ZMQ.Socket publisher){
             this.exchange=exchange;
             this.empresa=empresa;
             this.publisher=publisher;
-            sellOrder = new TreeMap<Double, Ordem.Order>();
-            buyOrder = new TreeMap<Double, Ordem.Order>();
+            sellOrder = new TreeMap<Double, Stack<Ordem.Order>>();
+            buyOrder = new TreeMap<Double, Stack<Ordem.Order>>();
 
+        }
+
+        static Ordem.Order createOrder(Ordem.Order.OrderTypes typeoforder, String companyName, String userName, double preco, int quantidade){
+            return
+                    Ordem.Order.newBuilder()
+                            .setEmpresa(companyName)
+                            .setPreco(preco)
+                            .setUsername(userName)
+                            .setTipodeempresa(typeoforder)
+                            .setQuantidade(quantidade)
+                            .build();
         }
 
         protected Void doRun() throws InterruptedException, SuspendExecution{
@@ -139,31 +208,101 @@ public class Exchange {
                     case SELLORDER:
                         Ordem.Order ordemVenda = (Ordem.Order) msg.o;
                         publisher.sendMore(this.empresa);
-                        publisher.send("formatar texto da empresa");
-                        sellOrder.put(ordemVenda.getPreco(),ordemVenda);
+                        publisher.send("formatar texto da empresa Venda");
+                        Stack <Ordem.Order> aux =sellOrder.get(ordemVenda.getPreco());
+                        if ((aux) !=null){
+                            aux.push(ordemVenda);
+                        }
+                        else{
+                            Stack<Ordem.Order> stack = new Stack<Ordem.Order>();
+                            stack.push(ordemVenda);
+                            sellOrder.put(ordemVenda.getPreco(),stack);
+                        }
                         if (buyOrder.isEmpty()) return true;
                         else {
-                            Ordem.Order orderSell = sellOrder.firstEntry().getValue();
-                            Ordem.Order orderBuy = buyOrder.firstEntry().getValue();
-                            // CRIAR TRANSAÇAO CUIDADO COM A DIFERRENÇA DE UNIDADES
-                            //sellOrder.remove(orderSell.getEmpresa());
-                            //buyOrder.remove(orderBuy.getEmpresa());
+                            Ordem.Order orderSell = sellOrder.firstEntry().getValue().pop();
+                            Ordem.Order orderBuy = buyOrder.firstEntry().getValue().pop();
+                            if(orderSell.getQuantidade() == orderBuy.getQuantidade()){
+                                new TransactionManager(
+                                        orderBuy.getQuantidade(),
+                                        orderBuy.getUsername(),
+                                        orderSell.getUsername(),
+                                        (orderSell.getPreco()+orderBuy.getPreco())/2,
+                                        empresa)
+                                            .spawn();
+                            }
+                            else if(orderSell.getQuantidade() < orderBuy.getQuantidade()){
+                                self().send(new Msg(Type.BUYORDER,createOrder(Ordem.Order.OrderTypes.BUY,empresa,orderBuy.getUsername(),orderBuy.getPreco(),orderBuy.getQuantidade()-orderSell.getQuantidade())));
+                                new TransactionManager(
+                                        orderSell.getQuantidade(),
+                                        orderBuy.getUsername(),
+                                        orderSell.getUsername(),
+                                        (orderSell.getPreco()+orderBuy.getPreco())/2,
+                                        empresa)
+                                        .spawn();
+                            }
+                            else {
+                                self().send(new Msg(Type.SELLORDER,createOrder(Ordem.Order.OrderTypes.SELL,empresa,orderSell.getUsername(),orderSell.getPreco(),orderSell.getQuantidade()-orderBuy.getQuantidade())));
+                                new TransactionManager(
+                                        orderBuy.getQuantidade(),
+                                        orderBuy.getUsername(),
+                                        orderSell.getUsername(),
+                                        (orderSell.getPreco()+orderBuy.getPreco())/2,
+                                        empresa)
+                                        .spawn();
+                            }
+                            /*
                             System.out.println("AQUI"+this.empresa);
                             publisher.sendMore(this.empresa);
-                            publisher.send("aqui caralho");
-
+                            publisher.send("aqui caralho");*/
                         }
                         return true;
                     case BUYORDER:
                         Ordem.Order ordemCompra = (Ordem.Order) msg.o;
-                        buyOrder.put(ordemCompra.getPreco(),ordemCompra);
-                        if (sellOrder.isEmpty()) return true;
+                        publisher.sendMore(this.empresa);
+                        publisher.send("formatar texto da empresa Compra");
+                        Stack <Ordem.Order> aux2 =buyOrder.get(ordemCompra.getPreco());
+                        if ((aux2) !=null){
+                            aux2.push(ordemCompra);
+                        }
                         else{
-                            Ordem.Order orderSell = sellOrder.firstEntry().getValue();
-                            Ordem.Order orderBuy = buyOrder.firstEntry().getValue();
-                            // CRIAR TRANSAÇAO CUIDADO COM A DIFERENÇA DE UNIDADES
-                            //sellOrder.remove(orderSell.getEmpresa());
-                            //buyOrder.remove(orderBuy.getEmpresa());
+                            Stack<Ordem.Order> stack = new Stack<Ordem.Order>();
+                            stack.push(ordemCompra);
+                            sellOrder.put(ordemCompra.getPreco(),stack);
+                        }
+                        if (sellOrder.isEmpty()) return true;
+                        else {
+                            Ordem.Order orderSell = sellOrder.firstEntry().getValue().pop();
+                            Ordem.Order orderBuy = buyOrder.firstEntry().getValue().pop();
+                            if(orderSell.getQuantidade() == orderBuy.getQuantidade()){
+                                new TransactionManager(
+                                        orderBuy.getQuantidade(),
+                                        orderBuy.getUsername(),
+                                        orderSell.getUsername(),
+                                        (orderSell.getPreco()+orderBuy.getPreco())/2,
+                                        empresa)
+                                        .spawn();
+                            }
+                            else if(orderSell.getQuantidade() < orderBuy.getQuantidade()){
+                                self().send(new Msg(Type.BUYORDER,createOrder(Ordem.Order.OrderTypes.BUY,empresa,orderBuy.getUsername(),orderBuy.getPreco(),orderBuy.getQuantidade()-orderSell.getQuantidade())));
+                                new TransactionManager(
+                                        orderSell.getQuantidade(),
+                                        orderBuy.getUsername(),
+                                        orderSell.getUsername(),
+                                        (orderSell.getPreco()+orderBuy.getPreco())/2,
+                                        empresa)
+                                        .spawn();
+                            }
+                            else {
+                                self().send(new Msg(Type.SELLORDER,createOrder(Ordem.Order.OrderTypes.SELL,empresa,orderSell.getUsername(),orderSell.getPreco(),orderSell.getQuantidade()-orderBuy.getQuantidade())));
+                                new TransactionManager(
+                                        orderBuy.getQuantidade(),
+                                        orderBuy.getUsername(),
+                                        orderSell.getUsername(),
+                                        (orderSell.getPreco()+orderBuy.getPreco())/2,
+                                        empresa)
+                                        .spawn();
+                            }
                         }
                         return true;
                 }
