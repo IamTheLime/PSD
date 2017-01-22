@@ -151,12 +151,12 @@ public class Exchange {
 
         protected Void doRun() throws InterruptedException, SuspendExecution {
             try {
-                System.out.println("Teste");
+                System.out.println(this.empresa+" "+this.agreedprice);
 
                 Context ctx = new InitialContext();
                 UserTransaction txn = (UserTransaction) ctx.lookup("java:comp/UserTransaction");
                 txn.begin();
-                ConnectionFactory cf = (ConnectionFactory) ctx.lookup("jms/settlementConn");
+                ConnectionFactory cf = (ConnectionFactory) ctx.lookup("jms/settlementConnection");
                 javax.jms.Connection c1 = cf.createConnection();
                 Session s = c1.createSession(false,0);
                 Destination q = s.createTopic("TransactionToSettlement");
@@ -220,8 +220,12 @@ public class Exchange {
                         }
                         if (buyOrder.isEmpty()) return true;
                         else {
-                            Ordem.Order orderSell = sellOrder.firstEntry().getValue().pop();
-                            Ordem.Order orderBuy = buyOrder.firstEntry().getValue().pop();
+                            Stack<Ordem.Order> orderSellStack = sellOrder.firstEntry().getValue();
+                            Ordem.Order orderSell = orderSellStack.pop();
+                            if (orderSellStack.size() == 0) {sellOrder.remove(sellOrder.firstEntry().getKey());}
+                            Stack<Ordem.Order> orderBuyStack = buyOrder.firstEntry().getValue();
+                            Ordem.Order orderBuy = orderBuyStack.pop();
+                            if (orderBuyStack.size() == 0) {buyOrder.remove(buyOrder.firstEntry().getKey());}
                             if(orderSell.getQuantidade() == orderBuy.getQuantidade()){
                                 new TransactionManager(
                                         orderBuy.getQuantidade(),
@@ -261,6 +265,7 @@ public class Exchange {
                         Ordem.Order ordemCompra = (Ordem.Order) msg.o;
                         publisher.sendMore(this.empresa);
                         publisher.send("formatar texto da empresa Compra");
+
                         Stack <Ordem.Order> aux2 =buyOrder.get(ordemCompra.getPreco());
                         if ((aux2) !=null){
                             aux2.push(ordemCompra);
@@ -268,12 +273,16 @@ public class Exchange {
                         else{
                             Stack<Ordem.Order> stack = new Stack<Ordem.Order>();
                             stack.push(ordemCompra);
-                            sellOrder.put(ordemCompra.getPreco(),stack);
+                            buyOrder.put(ordemCompra.getPreco(),stack);
                         }
                         if (sellOrder.isEmpty()) return true;
                         else {
-                            Ordem.Order orderSell = sellOrder.firstEntry().getValue().pop();
-                            Ordem.Order orderBuy = buyOrder.firstEntry().getValue().pop();
+                            Stack<Ordem.Order> orderSellStack = sellOrder.firstEntry().getValue();
+                            Ordem.Order orderSell = orderSellStack.pop();
+                            if (orderSellStack.size() == 0) {sellOrder.remove(sellOrder.firstEntry().getKey());}
+                            Stack<Ordem.Order> orderBuyStack = buyOrder.firstEntry().getValue();
+                            Ordem.Order orderBuy = orderBuyStack.pop();
+                            if (orderBuyStack.size() == 0) {buyOrder.remove(buyOrder.firstEntry().getKey());}
                             if(orderSell.getQuantidade() == orderBuy.getQuantidade()){
                                 new TransactionManager(
                                         orderBuy.getQuantidade(),
@@ -294,7 +303,7 @@ public class Exchange {
                                         .spawn();
                             }
                             else {
-                                self().send(new Msg(Type.SELLORDER,createOrder(Ordem.Order.OrderTypes.SELL,empresa,orderSell.getUsername(),orderSell.getPreco(),orderSell.getQuantidade()-orderBuy.getQuantidade())));
+                               self().send(new Msg(Type.SELLORDER,createOrder(Ordem.Order.OrderTypes.SELL,empresa,orderSell.getUsername(),orderSell.getPreco(),orderSell.getQuantidade()-orderBuy.getQuantidade())));
                                 new TransactionManager(
                                         orderBuy.getQuantidade(),
                                         orderBuy.getUsername(),

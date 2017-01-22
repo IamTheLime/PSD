@@ -16,7 +16,9 @@ import java.sql.Statement;
 public class Settlement {
 
     public static void main(String[] args) {
+        while(true){
         try {
+
             Context ctx = new InitialContext();
             UserTransaction txn = (UserTransaction) ctx.lookup("java:comp/UserTransaction");
 
@@ -31,6 +33,8 @@ public class Settlement {
             System.out.println(((Transacao.Transaction) obj.getObject()).getEmpresa());
             txn.commit();
         }
+
         catch (Exception e){e.printStackTrace();}
+        }
     }
 }
